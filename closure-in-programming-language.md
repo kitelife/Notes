@@ -42,4 +42,4 @@ wikipedia上的定义为:
 
 > 我认为强类型语言可以实现类似闭包的结构，但是无法做到真正封闭的闭包，为什么呢？因为，比如函数闭包，是通过闭包中的函数访问闭包的局部变量的，在强类型语言中，函数指针赋值时是需要声明函数的返回值类型的，这样就无法对闭包外部的代码完全隐藏内部的实现。而弱类型语言的函数返回值类型是自动推导的，不存在这个问题。(希望这样的理解是对的...:-))
 
-参考以及进一步阅读--->[Wikipedia词条Closure](http://en.wikipedia.org/wiki/Closure_\(computer_science\)"Closure")
+**参考以及进一步阅读**--->[Wikipedia词条Closure](http://en.wikipedia.org/wiki/Closure_\(computer_science\)"Closure")

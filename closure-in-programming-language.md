@@ -3,9 +3,9 @@ wikipedia上的定义为:
 
 In computer science, a closure(also lexical closure, function closure, function value or functional value) is a function together with a referencing environment for the non-local variables of that function.
 
-也就是说，闭包 = 函数 + 环境，什么是环境(a referencing environment)呢？环境就是被函数引用的变量的名称与值。这些变量只能被闭包中的函数引用，修改，并且闭包的函数每次调用结束，这些变量的生命期并没有结束，它们是和闭包的生命一样长的。只有当不再有闭包的函数引用它们，它们才和闭包一起消失。这和语言的垃圾收集机制相关，所以一般支持闭包的语言都支持垃圾收集。
+也就是说，闭包 = 函数 + 环境，什么是环境(a referencing environment)呢？环境就是被函数引用的变量的名称与值。这些变量只能被闭包中的函数引用，修改，并且闭包的函数每次调用结束，这些变量的生命期并没有结束，它们是和闭包的生命一样长的。这和语言的垃圾收集机制相关，所以一般支持闭包的语言都支持垃圾收集。
 
-那么闭包的实现形式是什么样的呢？如下是一段Python代码：
+那么闭包的在语言中的表现形式是什么样的呢？如下是一段Python代码：
 
     def counter():
 		x = 0
@@ -28,4 +28,10 @@ In computer science, a closure(also lexical closure, function closure, function 
 
 `counter2_increment = counter()`
 
-这两句代码分别创建了一个闭包，这两个闭包是相互独立的，不相关的，其中的变量x对它们来说都是私有的，不会相互影响。
+这两句代码分别创建了一个闭包，这两个闭包是相互独立的，不相关的，其中的变量x对它们来说都是私有的，不会相互影响。从最后的四句代码可以看到这一点。并且从中可以看出，闭包中的环境(变量x)代表了闭包的状态。
+
+在不同的语言中闭包在形式上略有差别，可能是函数嵌套(内层函数匿名或者非匿名)，面向对象的类，以及内部类等等。
+
+但在实现原理应该是一致的。如果是ruby之父Matsumoto关于闭包的一段解释:
+
+Closure对象包含可以运行的代码，是可执行的，代码包含状态，执行范围。也就是说在Closure中你捕捉到运行环境，即局部变量。因此，你可以在一个Closure中引用局部变量，即使在函数调用已经返回之后，它的执行范围已经销毁，局部变量仍然作为一部分存在于Closure对象中，当没有任何对象引用它的时候，垃圾搜集器将处理它，局部变量将消失。

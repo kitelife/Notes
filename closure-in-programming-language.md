@@ -21,3 +21,10 @@ In computer science, a closure(also lexical closure, function closure, function 
 	counter1_increment(7)   #prints 8
 	counter2_increment(1)   #prints 1
 	counter1_increment(1)   #prints 9
+
+代码中定义了一个函数counter,函数中有一个局部变量x，以及一个嵌套定义的函数increment，increment函数访问了x, 对increment来说，x是一个外部变量。这样，counter函数调用返回的就是一个闭包，闭包中包含一个对increment函数的引用以及变量x。
+
+`counter1_increment = counter()`
+`counter2_increment = counter()`
+
+这两句代码分别创建了一个闭包，这两个闭包是相互独立的，不相关的，其中的变量x对它们来说都是私有的，不会相互影响。

@@ -18,3 +18,16 @@
 Anything that can be done with generators can also be done with class based iterators as described in the previous section. What makes generators so compact is that the *\_\_iter\_\_* and *next()* methods are created automatically.
 
 Another key feature is that the local variables and execution state are automatically saved between calls. This made the function easier to write and much more clear than an approach using instance variables like self.index and self.data.
+
+- zip()
+
+zip(seq1, [, seq2 [...]]) -> [(seq1[0], seq2[0] ...), (...)]
+
+Return a list of tuples, where each tuple contains the i-th element from each of the argument sequences. The returned list is truncated in length to the length of the shortest argument sequence.
+
+	>>> xvec = [10, 20, 30]
+	>>> yvec = [7, 5, 3]
+	>>> sum(x*y for x, y in zip(xvec, yvec))
+	260
+
+

@@ -30,4 +30,14 @@ Return a list of tuples, where each tuple contains the i-th element from each of
 	>>> sum(x*y for x, y in zip(xvec, yvec))
 	260
 
+- subprocess
+
+The *subprocess* module allows you to spawn new process, connect to their input/output/error pipes, and obtain their return code. This module intends to replace several other, older modules and functions, such as:
+
+	os.system
+	os.spawn*
+	os.popen*
+	popen2.*
+	commands.*
+
 

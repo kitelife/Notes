@@ -63,3 +63,21 @@ Django中M，V和C各自的含义:
 > 一个app是一套Django功能的集合，通常包括模型和视图，按python的包结构的方式存在。例如，Django本身内建有一些app，例如注释系统和自动管理系统。app的一个关键点是它们是很容易移植到其他project和被多个project复用。
 
 django系统对app有一个约定：如果你使用了Django的数据库层(模型)，你必须创建一个Django app。模型必须存放在apps中。
+
+- Django模型相关的命令
+
+> python manage.py validate --- 检查模型的语法和逻辑是否正确
+
+> python manage.py sqlall appName --- 生成CREATE TABLE语句，但并没有在数据库中真正创建数据表，只是把SQL语句段打印出来，这样你可以看到Django究竟会做些什么。
+
+> python manage.py syncdb --- 同步你的模型到数据库的一个简单方法。它会根据INSTALLED_APPS里设置的app来检查数据库，如果表不存在，它就会创建它。要注意的是syncdb并不能将模型的修改或删除同步到数据库；如果你修改或删除了一个模型，并想把它提交到数据库，syncdb并不会做出任何处理。
+
+- Django的Admin是如何工作的？
+
+当服务启动时，Django从url.py引动URLconf，然后执行admin.autodiscover()语句。这个函数遍历INSTALLED_APPS配置，并且寻找相关的admin.py文件。如果在指定的app目录下找到admin.py，它就执行其中的代码。例如:
+
+在books应用程序目录下的admin.py文件中，每次调用admin.site.register()都将那个模块注册到管理工具中。管理工具只为那些明确注册了的模块显示一个编辑/修改的界面。
+
+应用程序*django.contrib.auth*包含自身的admin.py，所以Users和Groups能在管理工具中自动显示。其它的django.contrib应用程序，如django.contrib.redirects，其它从网上下载的第三方Django应用程序一样，都会自行添加到管理工具。
+
+综上所述，管理工具其实就是一个Django应用程序，包含自己的模型，模板，视图和URLpatterns。你要像添加自己的视图一样，把它添加到URLconf里面。

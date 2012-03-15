@@ -81,3 +81,13 @@ django系统对app有一个约定：如果你使用了Django的数据库层(模�
 应用程序*django.contrib.auth*包含自身的admin.py，所以Users和Groups能在管理工具中自动显示。其它的django.contrib应用程序，如django.contrib.redirects，其它从网上下载的第三方Django应用程序一样，都会自行添加到管理工具。
 
 综上所述，管理工具其实就是一个Django应用程序，包含自己的模型，模板，视图和URLpatterns。你要像添加自己的视图一样，把它添加到URLconf里面。
+
+- 类字典对象
+
+*request.GET和request.POST是类字典对象*，意思是它们的行为像Python里标准的字典对象，但在技术底层上它们不是标准字典对象。比如说，request.GET和request.POST都有get(),keys()和values()方法，你可以用for key in request.GET获取所有的键。
+
+那到底有什么区别呢？因为request.GET和request.POST拥有一些普通的字典对象所没有的方法。
+
+- POST和GET
+
+POST数据来自HTML中的<form>标签提交的，而GET数据可能来自<form>提交也可能是URL中的查询字符串(the query string)

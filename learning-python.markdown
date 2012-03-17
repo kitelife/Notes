@@ -90,4 +90,12 @@ django系统对app有一个约定：如果你使用了Django的数据库层(模�
 
 - POST和GET
 
-POST数据来自HTML中的<form>标签提交的，而GET数据可能来自<form>提交也可能是URL中的查询字符串(the query string)
+POST数据来自HTML中的\<form\>标签提交的，而GET数据可能来自<form>提交也可能是URL中的查询字符串(the query string)
+
+- Django带有一个form库，称为django.forms，这个库可以处理HTML表单显示，数据校验，数据清理和表单错误重现。
+
+> 表单框架最主要的用法是，为每一个将要处理的HTML的*\<Form\>*定义一个Form类。
+
+> forms框架把每一个字段的显示逻辑分离到一组部件(widget)中。每一个字段类型都拥有一个默认的部件。
+
+

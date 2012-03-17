@@ -1,6 +1,8 @@
 ## 杂项
 
-- Node.js是服务器端的JavaScript运行环境，它具有无阻塞(non-blocking)和事件驱动(event-driven)等特色，Node.js采用V8引擎。
+- Node.js
+
+Node.js是服务器端的JavaScript运行环境，它具有无阻塞(non-blocking)和事件驱动(event-driven)等特色，Node.js采用V8引擎。
 
 > 我想不仅仅是Node.js，当我们要引入任何一种新技术前都必须要搞清楚几个问题：
 

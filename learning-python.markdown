@@ -98,4 +98,17 @@ POST数据来自HTML中的\<form\>标签提交的，而GET数据可能来自\<fo
 
 > forms框架把每一个字段的显示逻辑分离到一组部件(widget)中。每一个字段类型都拥有一个默认的部件。
 
+--
 
+- virtualenv
+
+virtualenv是一个建立虚拟Python环境的工具。
+
+安装好后，直接运行
+
+	virtualenv	env_dir
+	source env_dir/bin/activate
+
+就完成环境目录的建立，并激活了该环境。最新的1.7版本默认是不使用系统原有的包(等于--no-site-packages)。激活环境后，安装的包都会限制在这个环境里(应该就是env_dir目录里)，执行deactive会离开这个环境。
+
+移除环境直接删除该目录应该就可以了。

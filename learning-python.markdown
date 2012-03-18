@@ -122,3 +122,31 @@ virtualenv是一个建立虚拟Python环境的工具。
 就完成环境目录的建立，并激活了该环境。最新的1.7版本默认是不使用系统原有的包(等于--no-site-packages)。激活环境后，安装的包都会限制在这个环境里(应该就是env_dir目录里)，执行deactive会离开这个环境。
 
 移除环境直接删除该目录应该就可以了。
+
+---
+
+*virtualenv* is a tool to create isolated Python environments.
+
+The basic problem being addressed is one of dependencies and versions, and indirectly permissions. Imagine you have an application that needs version 1 of LibFoo, but another application requires version 2. How can you use both these applications? If you install everything into /usr/lib/python2.7/site-packages (or whatever your platform\'s standard location is), it\'s easy to end up in a situation where you unintentionally upgrade an application that shoudn\'t be upgraded.
+
+Or more generally, what if you want to install an application and leave it be? If an application works, any change in its libraries or the version of those libraries can break the application.
+
+Also, what if you can\'t install packages into the global site-packages directory? For instance, on a shared host.
+
+In all these cases, virtualenv can help you. It creates an environment that has its own installation directories, that doesn\'t share libraries with other virtualenv environment(and optionally doesn\'t access the globally installed libraries either).
+
+The basic usage is:
+
+	$python virtualenv.py ENV
+
+If you install it you can also just do virtual ENV
+
+This creates ENV/lib/pythonX.X/site-packages, where any libraries you install will go. It also creates ENV/bin/python, which is a Python interpreter that uses this environment. Anytime you use that interpreter(including when a script has *#!/path/to/ENV/bin/python in it*)the libraries in that environment will be used.
+
+---
+
+- The *--system-site-packages* Option
+
+If you build with virtualenv --system-site-packages ENV, your virtual environment will inherit packages from /usr/lib/python2.7/site-packages(or wherever your global site-packages directory is).
+
+This can be used if you have control over the global site-packages directory, and you want to depend on the packages there. If you want to isolation from the global system, do not use this flag.

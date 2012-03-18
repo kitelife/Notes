@@ -64,6 +64,8 @@ Django中M，V和C各自的含义:
 
 django系统对app有一个约定：如果你使用了Django的数据库层(模型)，你必须创建一个Django app。模型必须存放在apps中。
 
+---
+
 - Django模型相关的命令
 
 > python manage.py validate --- 检查模型的语法和逻辑是否正确
@@ -71,6 +73,8 @@ django系统对app有一个约定：如果你使用了Django的数据库层(模�
 > python manage.py sqlall appName --- 生成CREATE TABLE语句，但并没有在数据库中真正创建数据表，只是把SQL语句段打印出来，这样你可以看到Django究竟会做些什么。
 
 > python manage.py syncdb --- 同步你的模型到数据库的一个简单方法。它会根据INSTALLED_APPS里设置的app来检查数据库，如果表不存在，它就会创建它。要注意的是syncdb并不能将模型的修改或删除同步到数据库；如果你修改或删除了一个模型，并想把它提交到数据库，syncdb并不会做出任何处理。
+
+---
 
 - Django的Admin是如何工作的？
 
@@ -82,11 +86,15 @@ django系统对app有一个约定：如果你使用了Django的数据库层(模�
 
 综上所述，管理工具其实就是一个Django应用程序，包含自己的模型，模板，视图和URLpatterns。你要像添加自己的视图一样，把它添加到URLconf里面。
 
+---
+
 - 类字典对象
 
 *request.GET和request.POST是类字典对象*，意思是它们的行为像Python里标准的字典对象，但在技术底层上它们不是标准字典对象。比如说，request.GET和request.POST都有get(),keys()和values()方法，你可以用for key in request.GET获取所有的键。
 
 那到底有什么区别呢？因为request.GET和request.POST拥有一些普通的字典对象所没有的方法。
+
+---
 
 - POST和GET
 
@@ -98,9 +106,7 @@ POST数据来自HTML中的\<form\>标签提交的，而GET数据可能来自\<fo
 
 > forms框架把每一个字段的显示逻辑分离到一组部件(widget)中。每一个字段类型都拥有一个默认的部件。
 
---
-
-- virtualenv
+### virtualenv
 
 virtualenv是一个建立虚拟Python环境的工具。
 

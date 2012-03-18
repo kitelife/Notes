@@ -54,6 +54,8 @@ Django中M，V和C各自的含义:
 
 由于C由框架自行处理，而Django里更关注的是模型(Model)，模板(Template)和视图(Views)，Django也被称为MTV框架
 
+---
+
 - 在Django中Project和app的区别？
 
 > 一个project包含很多个Django app以及对它们的配置。
@@ -99,6 +101,8 @@ django系统对app有一个约定：如果你使用了Django的数据库层(模�
 - POST和GET
 
 POST数据来自HTML中的\<form\>标签提交的，而GET数据可能来自\<form\>提交也可能是URL中的查询字符串(the query string)
+
+---
 
 - Django带有一个form库，称为django.forms，这个库可以处理HTML表单显示，数据校验，数据清理和表单错误重现。
 

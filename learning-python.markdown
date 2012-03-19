@@ -165,4 +165,63 @@ This can be used if you have control over the global site-packages directory, an
 
 **cmp(x, y)**: Compare the two objects x and y and return an integer according the ourcome. The return value is negative if x<y, zero if x == y and strictly positive if x > y.
 
+**delattr(object, name)**: This is a relative of *setattr()*. The arguments are an object and a string. The string must be the name of one of the object\'s attributes. The function deletes the named attribute, provided the object allows it.
+
+**dict([arg])**: Create a new data dictionary, optionally with items taken from arg.
+
+**divmod(a, b)**: Take two(non complex)numbers as arguments and return a pair of numbers consisting of their quotient and remainder when using long division.
+
+**enumerate(sequence[, start=0])**: Return an enumerate object. sequence must be a sequence, an iterator, or some other object which supports iteration.The next() method of the iterator returned by enumerate() returns a tuple containing a count (from *start* which defaults to 0) and the values obtained from iterating over sequence:
+
+	>>>seasons = [\'Spring\',\'Summer\',\'Fall\',\'Winter\']
+	>>>list(enumerate(seasons))
+	[(0,\'Spring\'),(1,\'Summer\'),(2,\'Fall\'),(3,\'Winter\')]
+	>>>list(enumerate(seasons, start=1))
+	[(1,\'Spring\'),(2,\'Summer\'),(3,\'Fall\'),(4,\'Winter\')]
+
+Equivalent to:
+
+	def enumerate(sequence, start=0):
+		n = start
+		for elem in sequence:
+			yield n, elem
+			n += 1
+
+**eval(expression[,globals[,locals]])**: The arguments are a string and optional globals and locals. If provided, globals must be a dictionary. If provided, locals can be any mapping object.
+
+**filter(function, iterable)**: Construct a list from those elements of iterable for which function returns true. iterable may be either a sequence, a container which supports iteration, or an iterator. If iterable is a string or a tuple, the result also has that type; otherwise it is always a list.
+
+**getattr(object,name[,default])**: Return the value of the named attribute of object. name must be a string. If the string is the name of one of the object\'s attributes, the result is the value of that attribute. If the named attribute does not exist, *default* is returned if provided, otherwise AttributeError is raised.
+
+**hasattr(object name)**: The arguments are an object and a string. The result is True if the string is the name of one of the object\'s attributes, False if not.(This is implemented by calling getattr(object,name) and seeing whether it raises an exception or not).
+
+**hex(x)**: Convert an integer number (of any size) to a hexadecimal(十六进制的) string. The result is a valid Python expression.
+
+**isinstance(object, classinfo)**: Return true if the object argument is an instance of the classinfo argument, or of a (direct, indirect or virtual) subclass thereof. Also return true if classinfo is a type object (new-style class) and object is an object of that type or of a (direct, indirect or virtual) subclass thereof.
+
+**issubclass(class, classinfo)**
+
+**map(function, iterable, ...)**: Apply function to every item of iterable and return a list of the results.
+
+**next(iterator[,default])**: Retrieve the next item from the iterator by calling its next() method. If *default* is given, it is returned if the iterator is exhausted, otherwise StopIteration is raised.
+
+**oct(x)**: Convert an integer number(of any size) to an octal string.
+
+**pow(x,y[,z])**: Return x to the power y, if z is present, return x to the power y, modulo z(computed more efficiently than pow(x,y)% z). The two-argument form pow(x,y) is equivalent to using the power operator: x\*\*y.
+
+**reduce(function, iterable[, initializer])**: Apply *function* of two arguments cumulatively to the items of iterable, from left to right, so as to reduce the iterable to a single value.
+
+**repr(object)**: Return a string containing a printable representation of an object. A class can control what this function returns for its instances by defining a \_\_repr\_\_() method.
+
+**reversed(seq)**: Return a reverse iterator. seq must be an object which has a \_\_reversed\_\_ method.
+
+**slice([start], stop[, step])**
+
+**sorted(iterable[, cmp[, key[,reverse]]])**
+
+**type(object)**: Return the type of an object.
+
+**vars([object])**: Return the \_\_dict\_\_ attribute for a module, class, instance, or any other object with a \_\_dict\_\_ attribute.
+
+**xrange([start],stop[,step])**
 

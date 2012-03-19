@@ -153,16 +153,16 @@ This can be used if you have control over the global site-packages directory, an
 
 ### Built-in Functions
 
-*abs(x)*: Return the absolute value of a number. The argument may be a plain or long integer or a floating point number. If the argument is a complex number, its magnitude is returned.
+**abs(x)**: Return the absolute value of a number. The argument may be a plain or long integer or a floating point number. If the argument is a complex number, its magnitude is returned.
 
-*bin(x)*: Convert an integer number to a binary string.
+**bin(x)**: Convert an integer number to a binary string.
 
-*bool([x])*: Convert a value to a Boolean, using the standard truth testing procedure. If x is false or omitted, this returns False; otherwise it returns True.
+**bool([x])**: Convert a value to a Boolean, using the standard truth testing procedure. If x is false or omitted, this returns False; otherwise it returns True.
 
-*callable(object)*: Return True if the object argument appears callable, False if not. If this returns true, it is still possible that a call fails, but if it is false, calling object will never succeed.
+**callable(object)**: Return True if the object argument appears callable, False if not. If this returns true, it is still possible that a call fails, but if it is false, calling object will never succeed.
 
-*chr(i)*: Return a string of one character whose ASCII code is the integer i.
+**chr(i)**: Return a string of one character whose ASCII code is the integer i.
 
-*cmp(x, y)*: Compare the two objects x and y and return an integer according the ourcome. The return value is negative if x<y, zero if x == y and strictly positive if x > y.
+**cmp(x, y)**: Compare the two objects x and y and return an integer according the ourcome. The return value is negative if x<y, zero if x == y and strictly positive if x > y.
 
 

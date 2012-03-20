@@ -67,6 +67,79 @@ Dynamic linking makes executable files smaller and saves disk space, because one
 
 Furthermore, shared libraries make it possible to update a library without recompiling the programs which use it (provided the interface to the library does not change).
 
+---
+
+- preprocessor
+
+The preprocessor(cpp) expands macros in source files before they are compiled.
+
+It is possible to see the effect of the preprocessor on source file directly, using the '-E' option of gcc. The ability to see the preprocessed source files can be useful for examing the effect of system header files, and finding declarations of system functions.
+
+The preprocessed system header files usually generate a lot of output. This can be redirected to a file, or saved more conveniently using the GCC '-save-temps' option:
+
+	$ gcc -c -save-temps hello.c
+
+After running this command, the preprocessed output will be available in the file 'hello.i'. The '-save-temps' option also saves '.s' assembly files and '.o' object files in addition to preprocessed '.i' files.
+
+---
+
+- Compiling for debugging
+
+Normally, an executable file does not contain any references to the original program source code, such as variable names or line-numbers\-\-the executable file is simply the sequence of machine code instructions produced by the compiler. This is insufficient for debugging, since there is no easy way to find the cause of an error if the program crashes.
+
+GCC provided the '-g' debug option to store addtional debugging information in object files and executables. This debugging information allows errors to be traced back from a specific machine instruction to the corresponding line in the original source file.
+
+The debug option works by storing the names of functions and variables (and all the references to them), with their corresponding source code line-numbers, in a *symbol table* in object files and executables.
+
+In addition to allowing a program to be run under the debugger, another helpful application of the '-g' option is to find the circumstances of a program crash.
+
+When a program exits abnormally the operating system can write out a *core* file, usually named 'core', which contains the in-memory state of the program at the time it crashed. Combined with information from the symbol table produced by '-g', the core file can be used to find the line where the program stopped, and the values of its variables at that point.
+
+Here is a simple program containing an invalid memory access bug, which we will use to produce a core file:
+
+	int a (int *p);
+
+	int
+	main (void)
+	{
+		int *p = 0; /* null pointer*/
+		return a (p);
+	}
+	
+	int
+	a (int *p)
+	{
+		int y = *p;
+		return y;
+	}
+
+The program attempts to dereference a null pointer **p**, which is an invalid operation. On most systems, this will cause a crash.**(Historically, a null pointer has typically corresponded to memory location 0, which is usually restricted to the operating system kernel and not accessible to user program)**.
+
+	$ gcc -Wall -g null.c
+	$ ./a.out
+	Segmentation fault (core dumped)
+
+Whenever the error message 'core dumped' is displayed, the operating system should produce a file called 'core' in the current directory.This core file contains a complete copy of the pages of memory used by the program at the time it was terminated. Incidentally, the term *segmentation fault* refers to the fact that the program tried to access a restricted memory "segment" outside the area of memory which had been allocated to it.
+
+Some systems are configured not to write core files by default, since the files can be large and rapidly fill up the available disk space. In the *GNU Bash shell* the command **ulimit -c** controls the maximum size of core files. If the size limit is zero, no core files are produced. The current size limit can be shown by command below:
+
+	$ ulimit -c
+	0
+
+If the result is zero, as shown above, then it can be increased with the following command to allow core files of any size to be written:
+
+	$ ulimit -c unlimited
+
+Note that this setting only applies to the current shell. To set the limit for future sessions the command should be placed in an appropriate login file, such as '.bash_profile' for the GNU Bash shell.
+
+Core files can be loaded into the GNU Debugger gdb with the following command:
+
+	$ gdb EXECUTABLE-FILE CORE-FILE
+
+---
+
+- Compiling with optimization
+
 
 
 - Important options
@@ -78,3 +151,9 @@ Furthermore, shared libraries make it possible to update a library without recom
 **-o**: creating executable from object file(s)
 
 **-l*Name***: In general, the compiler option '-l*NAME*' will attempt to link object files with a library file 'lib*NAME*.a' in the standard library directories.
+
+**-E**: causes gcc to run the preprocessor, display the expanded output, and then exit without compiling the resulting source code.
+
+**-save-temps**
+
+**-g**: the debug option to store additional debugging information in object files and executables.

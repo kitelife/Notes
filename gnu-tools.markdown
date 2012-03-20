@@ -51,6 +51,24 @@ The directories on these paths are searched in order, from first to last in the 
 
 When additional libraries are installed in other directories it is necessary to extend the search paths, in order for the libraries to be found. The compiler options \'-I\' and \'-L\' add new directories to the beginning of the include path and library search path respectively.
 
+---
+
+- Shared libraries and static libraries
+
+External libraries are usually provided in two forms: *static libraries* and *shared libraries*. Static libraries are the \'.a\' files. 
+
+When a program is linked against a static library, the machine code from the object files for any external functions used by the program is copied from the library into the final executable.
+
+Shared libraries are handled with a more advanced form of linking, which makes the executable file smaller. They use the extension \'.so\', which stands for *shared object*.
+
+An executable file linked against a shared library contains only a small table of the functions it requires, instead of the complete machine code from the object files for the external functions. Before the executable file starts running, the machine code for the external functions is copied into memory from the shared library file on disk by the operating system\-\-\- a process referered to as *dynamic linking*.
+
+Dynamic linking makes executable files smaller and saves disk space, because one copy of a library can be shared between multiple programs. Most operating system also provide a virtual memory mechanism which allows one copy of a shared library in physical memory to be used by all running programs, saving memory as well as disk space.
+
+Furthermore, shared libraries make it possible to update a library without recompiling the programs which use it (provided the interface to the library does not change).
+
+
+
 - Important options
 
 **-Wall**

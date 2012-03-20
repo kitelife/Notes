@@ -25,9 +25,9 @@ This is worth keeping in mind if you ever encounter unexpected problems with und
 
 - Linking with external libraries
 
-A library is a collection of precompiled object files which can be linked into programs. Libraries are typically stored in special *archive* files with the extension \'.a\', referred to as *static libraries*. They are created from object files with a separate tool, the GNU archiver **ar**, and used by the linker to resolve references to the functions at compile-time.(dynamic linking at runtime using *shared libraries*)
+A library is a collection of precompiled object files which can be linked into programs. Libraries are typically stored in special *archive* files with the extension '.a', referred to as *static libraries*. They are created from object files with a separate tool, the GNU archiver **ar**, and used by the linker to resolve references to the functions at compile-time.(dynamic linking at runtime using *shared libraries*)
 
-The standard system libraries are usually found in the directories \'/usr/lib\' and \'/lib\'. For example, the C math library is typically stored in the file \'/usr/lib/libm.a\' on Unix-like systems. The corresponding prototype declarations for the functions in this library are given in the header file \'/usr/include/math.h\'. The C standard library itself is stored in \'/usr/lib/libc.a\' and contains functions specified in the ANSI/ISO.C standard.
+The standard system libraries are usually found in the directories '/usr/lib' and '/lib'. For example, the C math library is typically stored in the file '/usr/lib/libm.a' on Unix-like systems. The corresponding prototype declarations for the functions in this library are given in the header file '/usr/include/math.h'. The C standard library itself is stored in '/usr/lib/libc.a' and contains functions specified in the ANSI/ISO.C standard.
 
 ---
 
@@ -49,17 +49,17 @@ The list of directories for header files is often referred to as the *include pa
 
 The directories on these paths are searched in order, from first to last in the two lists above.
 
-When additional libraries are installed in other directories it is necessary to extend the search paths, in order for the libraries to be found. The compiler options \'-I\' and \'-L\' add new directories to the beginning of the include path and library search path respectively.
+When additional libraries are installed in other directories it is necessary to extend the search paths, in order for the libraries to be found. The compiler options '-I' and '-L' add new directories to the beginning of the include path and library search path respectively.
 
 ---
 
 - Shared libraries and static libraries
 
-External libraries are usually provided in two forms: *static libraries* and *shared libraries*. Static libraries are the \'.a\' files. 
+External libraries are usually provided in two forms: *static libraries* and *shared libraries*. Static libraries are the '.a' files. 
 
 When a program is linked against a static library, the machine code from the object files for any external functions used by the program is copied from the library into the final executable.
 
-Shared libraries are handled with a more advanced form of linking, which makes the executable file smaller. They use the extension \'.so\', which stands for *shared object*.
+Shared libraries are handled with a more advanced form of linking, which makes the executable file smaller. They use the extension '.so', which stands for *shared object*.
 
 An executable file linked against a shared library contains only a small table of the functions it requires, instead of the complete machine code from the object files for the external functions. Before the executable file starts running, the machine code for the external functions is copied into memory from the shared library file on disk by the operating system\-\-\- a process referered to as *dynamic linking*.
 
@@ -77,4 +77,4 @@ Furthermore, shared libraries make it possible to update a library without recom
 
 **-o**: creating executable from object file(s)
 
-**-l*Name***: In general, the compiler option \'-l*NAME*\' will attempt to link object files with a library file \'lib*NAME*.a\' in the standard library directories.
+**-l*Name***: In general, the compiler option '-l*NAME*' will attempt to link object files with a library file 'lib*NAME*.a' in the standard library directories.

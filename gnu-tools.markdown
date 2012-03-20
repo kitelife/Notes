@@ -261,7 +261,7 @@ The **ldd** command can also be used to examine shared libraries themselves, in 
 
 **-E**: causes gcc to run the preprocessor, display the expanded output, and then exit without compiling the resulting source code.
 
-***-S*: instructs *gcc* to convert the [preprocessed] C source code to assembly language without creating an object file.
+**-S**: instructs *gcc* to convert the [preprocessed] C source code to assembly language without creating an object file.
 
 **-save-temps**
 

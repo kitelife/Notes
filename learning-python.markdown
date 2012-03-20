@@ -173,11 +173,11 @@ This can be used if you have control over the global site-packages directory, an
 
 **enumerate(sequence[, start=0])**: Return an enumerate object. sequence must be a sequence, an iterator, or some other object which supports iteration.The next() method of the iterator returned by enumerate() returns a tuple containing a count (from *start* which defaults to 0) and the values obtained from iterating over sequence:
 
-	>>>seasons = [\'Spring\',\'Summer\',\'Fall\',\'Winter\']
+	>>>seasons = ['Spring','Summer','Fall','Winter']
 	>>>list(enumerate(seasons))
-	[(0,\'Spring\'),(1,\'Summer\'),(2,\'Fall\'),(3,\'Winter\')]
+	[(0,'Spring'),(1,'Summer'),(2,'Fall'),(3,'Winter')]
 	>>>list(enumerate(seasons, start=1))
-	[(1,\'Spring\'),(2,\'Summer\'),(3,\'Fall\'),(4,\'Winter\')]
+	[(1,'Spring'),(2,'Summer'),(3,'Fall'),(4,'Winter')]
 
 Equivalent to:
 

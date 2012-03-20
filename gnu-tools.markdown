@@ -266,3 +266,7 @@ The **ldd** command can also be used to examine shared libraries themselves, in 
 **-save-temps**
 
 **-g**: the debug option to store additional debugging information in object files and executables.
+
+---
+
+**以上内容为《An introduction to GCC》阅读笔记**

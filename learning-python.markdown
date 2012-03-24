@@ -229,12 +229,14 @@ Equivalent to:
 
 - 以一个\*开始的参数，代表一个任意长的元组
 
+
 	def mul(\*arg):
 		print arg
 	
 	mul(1,2,3,4,5,6,7,'hello','xiayf')   #输出元组(1,2,3,4,5,6,7,'hello','xiayf')
 
 - 一个以\**开始的参数，代表一个字典
+
 
 	def mul2(\**arg):
 		print arg

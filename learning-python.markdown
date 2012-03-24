@@ -519,8 +519,6 @@ XML is an inherently hierarchical data format, and the most natural way to repre
 
 This PEP adds a new statement "with" to the Python language to make it possible to factor out standard uses of try/finally statements.
 
-In this PEP, context managers provide \_\_enter\_\_() and \_\_exit\_\_() methods that are invoked on entry to and exit from the body of the with statement.
-
 **Specification**:
 	
 	with EXPR as VAR:

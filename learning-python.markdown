@@ -553,9 +553,7 @@ The translation of the above statement is:
 
 Here, the lowercase variable (mgr, exit, value, exc) are internal variables and not accessible to the user; they will most likely be implemented as special registers or stack positions. 
 
-**Context Managers in the Standard Library**
-
-*contextlib --- Utilities for with-statement contexts*
+**contextlib --- Utilities for with-statement contexts**
 
 This module provides utilities for common tasks involving the **with** statement.
 
@@ -609,53 +607,5 @@ And lets you write code like this:
 			print line
 
 without needing to explicitly close *page*. Even if an error occurs, *page.close()* will be called when the **with** block is exited.
-
-**Examples**
-
-1. A template for ensuring that a lock, acquired at the start of a block, is released when the block is left:
-
-	@contextmanager
-	def locked(lock):
-		lock.acquire()
-		try:
-			yield
-		finally:
-			lock.release()
-
-Used as follows:
-
-	with locked(myLock):
-		# Code here executes with myLock held. The lock is
-		# guaranteed to be released when the block is left
-		# (even if via return or by an uncaught exception)
-
-2. A template for opening a file that ensures the file is closed when the block is left:
-
-	@contextmanager
-	def opened(filename, mode='r'):
-		f = open(filename, mode)
-		try:
-			yield f
-		finally:
-			f.close()
-
-Used as follows:
-
-	with opened("/etc/passwd") as f:
-		for line in f:
-			print line.rstrip()
-
-3. A template for committing or rolling back a database transaction:
-
-	@contextmanager
-	def transaction(db):
-		db.begin()
-		try:
-			yield None
-		except:
-			db.rollback()
-			raise
-		else:
-			db.commit()
 
 > **原理上还不是很懂，具体内容参考:1.http://docs.python.org/library/contextlib.html; 2.http://www.python.org/dev/peps/pep-0343/**

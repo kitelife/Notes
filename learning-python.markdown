@@ -497,3 +497,18 @@ Python has quite a few tools available in the standard library to handle XML.
 Finally, there's **xml.etree.ElementTree** (from now on, **ET** in short). It provides a lightweight Pythonic API, backed by an effcient C implementation, for parsing and creating XML. Compared to DOM, ET is much faster and has a more pleasant API to work with. Compared to SAX, there is ET.iterparse which also provides "on the fly" parsing without loading the whole document into memory. The performance is on par with SAX, but the API is higher level and much more convenient to use.
 
 My recommendation is to always use ET for XML processing in Python, unless you have very specific needs that may call for the other solutions.
+
+- ElementTree - one API, two implementations
+
+ElementTree is an API for manipulating XML, and it has two implementations in the Python standard library. One is a pure Python implementation in *xml.etree.ElementTree*, and the other is an accelerated C implementation in *xml.etree.cElementTree*. It's important to remember to always use the C implementation, since it is much, much faster and consumes significantly less memory. If your code can run on platforms that might not have the \_elementtree extension module available, the import incantation you need is:
+
+	try:
+		import xml.etree.cElementTree as ET
+	except ImportError:
+		import xml.etree.ElementTree as ET
+
+This is a common pratice in Python to choose from several implementations of the same API. Although chances are that you'll be able to get away with just importing the first module, your code *may* end up running on some strange platform where this will fail, so you better prepare for the possibility. Note that starting with Python 3.3, this will no longer be needed, since the ElementTree module will look for the C accelerator itself and fall back on the Python implementation if that's not available. So it will be sufficient to just import xml.etree.ElementTree.
+
+- Parsing XML into a tree
+
+XML is an inherently hierarchical data format, and the most natural way to represent it is with a tree. ET has two objects for this purpose - *ElementTree* represents the whole XML document as a tree, and *Element* represents a single node in the tree. Interactions with the whole document (reading, writing, finding interesting elements) are usually done on the *ElementTree* level. Interactions with a single XML element and its sub-elements is done on the *Element* level.

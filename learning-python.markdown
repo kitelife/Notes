@@ -267,7 +267,7 @@ You can use this to swap variables, as well:
 If you need to assign something (for instance, in Upacking)but not need that variable, use **\_**:
 
 	filename = 'foobar.txt'
-	basename, _, ext = filename.rpartition()
+	basename, _, ext = filename.rpartition('.')
 
 > "_" is commonly used as an alias for the *gettext()* function. If your application uses (or may someday use) *gettext*, you may want to avoid using _ for ignored variables, as you may accidentally shadow *gettext()*.
 

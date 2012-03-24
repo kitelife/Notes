@@ -402,3 +402,59 @@ Python supports returning multiple values from a function as a comma-separated l
 
 	square, cube = math_func(3)
 
+### Parallel Processing
+
+- Run in thread Python decorator
+
+Here is a little decorator that will run a function in a thread:
+
+	import threading
+
+	def run_in_thread(fn):
+		def run(*k, **kw):
+			t = threading.Thread(target=fn, args=k, kwargs=kw)
+			t.start()
+		return run
+
+It can be used for lazy updating analytics, cleanups or search index. An example:
+
+	class Search:
+
+		@run_in_thread
+		def add_item(self, ...):
+			...
+
+- Run multiple functions in threads.
+
+This is especially useful if you are scripting something and you need parallel processing.
+
+How to use it:
+
+	import os
+	from functools import partial
+
+	def expensive_operation(sleep_time):
+		print 'Sleeping for %s seconds...' % sleep_time
+		os.popen('sleep %s'%(sleep_time))
+		print 'Slept for %s seconds'%sleep_time
+
+	run_in_threads(
+			partial(expensive_operation, 10),
+			partial(expensive_operation, 5),
+			partial(expensive_operation, 15)
+	)
+
+How it's implemented:
+
+	import threading
+
+	def run_in_threads(*functions):
+		threads = []
+
+		for fn in functions:
+			thread = threading.Thread(target=fn)
+			thread.start()
+			threads.append(thread)
+
+		for thread in threads:
+			thread.join()

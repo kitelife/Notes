@@ -607,3 +607,12 @@ And lets you write code like this:
 without needing to explicitly close *page*. Even if an error occurs, *page.close()* will be called when the **with** block is exited.
 
 > **原理上还不是很懂，具体内容参考:1.http://docs.python.org/library/contextlib.html; 2.http://www.python.org/dev/peps/pep-0343/**
+
+### 特殊变量 '_' ###
+
+> '_' has 3 main conventional uses in Python:
+> 1. To hold the result of the last executed statement in an interactive interpreter session. This precedent was set by the standard CPython interpreter, and other interpreters have followed suit.
+> 2. For translation lookup in il8n (imported from the corresponding C convertions, I believe)
+> 3. As a general purpose "throwaway" variable name to indicate that part of a function result is being deliberately ignored
+>
+> The latter two purposes can conflict, so it is necessary to avoid using *_* as a throwaways variable in any code block that also uses it for il8n translation. 

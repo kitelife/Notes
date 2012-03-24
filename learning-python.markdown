@@ -514,3 +514,148 @@ This is a common pratice in Python to choose from several implementations of the
 - Parsing XML into a tree
 
 XML is an inherently hierarchical data format, and the most natural way to represent it is with a tree. ET has two objects for this purpose - *ElementTree* represents the whole XML document as a tree, and *Element* represents a single node in the tree. Interactions with the whole document (reading, writing, finding interesting elements) are usually done on the *ElementTree* level. Interactions with a single XML element and its sub-elements is done on the *Element* level.
+
+### PEP 343 -- The "with" Statement
+
+This PEP adds a new statement "with" to the Python language to make it possible to factor out standard uses of try/finally statements.
+
+In this PEP, context managers provide \_\_enter\_\_() and \_\_exit\_\_() methods that are invoked on entry to and exit from the body of the with statement.
+
+**Specification**:
+	
+	with EXPR as VAR:
+		BLOCK
+
+here, 'with' and 'as' are new keywords; EXPR is an arbitrary expression (but not an expression-list) and VAR is a single assignment target. It can *not* be a comma-separated sequence of variables, but it *can* be a *parenthesized* comma-separated sequence of variables.(This restriction makes a future extension possible of the syntax to have multiple comma-separated resources, each with its own optional as-clause.)
+
+The "as VAR" part is optional.
+
+The translation of the above statement is:
+
+	mgr = (EXPR)
+	exit = type(mgr).__exit__	# Not calling it yet
+	value = type(mgr).__enter__(mgr)
+	exc = True
+	try:
+		try:
+			VAR = value		# Only if "as VAR" is present
+			BLOCK
+		except:
+			# The exceptional case is handled here
+			exc = False
+			if not exit(mgr, *sys.exc_info()):
+				raise
+			# The exception is swallowed if exit() returns true
+	finally:
+		# The normal and non-local-goto cases are handled here
+		if exc:
+			exit(mgr, None, None, None)
+
+Here, the lowercase variable (mgr, exit, value, exc) are internal variables and not accessible to the user; they will most likely be implemented as special registers or stack positions. 
+
+**Context Managers in the Standard Library**
+
+*contextlib --- Utilities for with-statement contexts*
+
+This module provides utilities for common tasks involving the **with** statement.
+
+Functions provided:
+
+contextlib.**contextmanager**(func)
+
+> This function is a *decorator* that can be used to define a factory function for *with* statement context managers, without needing to create a class or separate \_\_enter\_\_() and \_\_exit\_\_ methods.
+
+A simple example (this is not recommended as a real way of generating HTML!):
+
+	from contextlib import contextmanager
+
+	@contextmanager
+	def tag(name):
+		print "<%s>" % name
+		yield
+		print "</%s>" % name
+
+	>>> with tag("h1"):
+	...		print "foo"
+	...
+	<h1>
+	foo
+	</h1>
+
+contextlib.**nested**(mgr1[,mgr2[,...]])
+
+> Combine multiple context managers into a single nested context managers/
+
+contextlib.**closing**(thing)
+
+> Return a context manager that closes *thing* upon completion of the block. This is basically equivalent to:
+
+	from contextlib import contextmanager
+
+	@contextmanager
+	def closing(thing):
+		try:
+			yield thing
+		finally:
+			thing.close()
+
+And lets you write code like this:
+
+	from contextlib import closing
+	import urllib
+
+	with closing(urllib.urlopen('http://www.python.org')) as page:
+		for line in page:
+			print line
+
+without needing to explicitly close *page*. Even if an error occurs, *page.close()* will be called when the **with** block is exited.
+
+**Examples**
+
+1. A template for ensuring that a lock, acquired at the start of a block, is released when the block is left:
+
+	@contextmanager
+	def locked(lock):
+		lock.acquire()
+		try:
+			yield
+		finally:
+			lock.release()
+
+Used as follows:
+
+	with locked(myLock):
+		# Code here executes with myLock held. The lock is
+		# guaranteed to be released when the block is left
+		# (even if via return or by an uncaught exception)
+
+2. A template for opening a file that ensures the file is closed when the block is left:
+
+	@contextmanager
+	def opened(filename, mode='r'):
+		f = open(filename, mode)
+		try:
+			yield f
+		finally:
+			f.close()
+
+Used as follows:
+
+	with opened("/etc/passwd") as f:
+		for line in f:
+			print line.rstrip()
+
+3. A template for committing or rolling back a database transaction:
+
+	@contextmanager
+	def transaction(db):
+		db.begin()
+		try:
+			yield None
+		except:
+			db.rollback()
+			raise
+		else:
+			db.commit()
+
+> **原理上还不是很懂，具体内容参考:1.http://docs.python.org/library/contextlib.html; 2.http://www.python.org/dev/peps/pep-0343/**

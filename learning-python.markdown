@@ -225,3 +225,180 @@ Equivalent to:
 
 **xrange([start],stop[,step])**
 
+### 不定参数
+
+- 以一个\*开始的参数，代表一个任意长的元组
+
+	def mul(\*arg):
+		print arg
+	
+	mul(1,2,3,4,5,6,7,'hello','xiayf')   #输出元组(1,2,3,4,5,6,7,'hello','xiayf')
+
+- 一个以\**开始的参数，代表一个字典
+
+	def mul2(\**arg):
+		print arg
+
+	mul2(a=11,b=444,c=888)          #输出一个字典{'a':11,'c':888,'b':444}
+
+两种参数前者可以直接写实参，后者则写成'名=值'的形式
+
+### Code Style
+
+- Idioms
+
+Idiomatic(地道的) Python code is often referred to as being **Pythonic**
+
+- Upacking
+
+If you know the length of a list or tuple, you can assign names to its elements with unpacking:
+
+	for index, item in enumerate(some_list):
+		# do something with index and item
+
+You can use this to swap variables, as well:
+
+	a, b = b, a
+
+- Create an ignored variable
+
+If you need to assign something (for instance, in Upacking)but not need that variable, use **\_**:
+
+	filename = 'foobar.txt'
+	basename, _, ext = filename.rpartition()
+
+> "_" is commonly used as an alias for the *gettext()* function. If your application uses (or may someday use) *gettext*, you may want to avoid using _ for ignored variables, as you may accidentally shadow *gettext()*.
+
+- Create a length-N list of the same thing
+
+Use the Python list * operator:
+
+	four_nones = [None] * 4
+
+- Create a length-N list of lists
+
+Because lists are mutable, the * operator will create a list of N references to the same list, which is not likely what you want. Instead, use a list comprehension:
+
+	four_lists = [[] for _ in xrange(4)]
+
+- Check if variable equals a constant
+
+You don't need to explicitly compare a value to True, or None, or 0, you can just add it to the if statement:
+
+**Bad**:
+
+	if attr == True:
+		print 'True!'
+	
+	if attr == None:
+		print 'attr is None'
+	
+**Good**:
+
+	# Just check the value
+	if attr:
+		print 'True!'
+	# or check for the opposite
+	if not attr:
+		print 'attr is None'
+
+- Access a Dictionary Element
+
+Don't use the *has_key* function. Instead use *x in d* syntax, or pass a default argument to *get*:
+
+**Bad**:
+
+	d = {'hello':'world'}
+	if d.has_key('hello'):
+		print d['hello']
+	else:
+		print 'default_value'
+
+**Good**:
+
+	d = {'hello':'world'}
+
+	print d.get('hello', 'default_value')  # prints 'world'
+	print d.get('thingy', 'default_value')	# prints 'default_value'
+
+	# or
+	if 'hello' in d:
+		print d['hello']
+
+- Short ways to manipulate Lists
+
+List comprehensions provide a powerful, concise way to work with lists. Also, the **map** and **filter** functions can perform operations on lists using a different concise syntax.
+
+**Bad**
+
+	# Filter elements less than 5
+	a = [3 ,4 ,5]
+	b = []
+	for i in a:
+		if i > 4:
+			b.append(i)
+
+**Good**
+
+	b = [i for i in a if i > 4]
+	# or
+	b = filter(lambda : x > 4, a)
+
+**Bad**
+
+	# Add three to all list members
+	a = [3, 4, 5]
+	count = 0
+	for i in a:
+		a[count] = i + 3
+		count = count + 1
+
+**Good**
+
+	a = [3, 4, 5]
+	a = [i + 3 for i in a]
+	# Or
+	a = map(lambda i: i + 3, a)
+
+Use **enumerate** to keep a count of your place in the list
+
+	for index, item in enumerate(a):
+		print index + ', ' + item
+
+- Read From a File
+
+Use the **with open** syntax to read from files. This will automatically close files for you.
+
+**Bad**
+
+	f = open('file.txt')
+	a = f.read()
+	print a
+	f.close()
+
+**Good**
+
+	with open('file.txt') as f:
+		for line in f:
+			print line
+
+- Returning Multiple Values from a Function
+
+Python supports returning multiple values from a function as a comma-separated list, so you don't have to create an object or dictionary and pack multiple values in before you return
+
+**Bad**
+
+	def math_func(a):
+		return {'square': a ** 2, 'cube': a ** 3}
+
+	d = math_func(3)
+	s = d['square']
+	c = d['cube']
+
+**Good**
+
+	def math_func(a):
+		return a ** 2, a ** 3
+
+	square, cube = math_func(3)
+

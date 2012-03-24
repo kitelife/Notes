@@ -227,16 +227,16 @@ Equivalent to:
 
 ### 不定参数
 
-- 以一个*开始的参数，代表一个任意长的元组
+- 以一个\*开始的参数，代表一个任意长的元组
 
-	def mul(*arg):
+	def mul(\*arg):
 		print arg
 	
 	mul(1,2,3,4,5,6,7,'hello','xiayf')   #输出元组(1,2,3,4,5,6,7,'hello','xiayf')
 
-- 一个以**开始的参数，代表一个字典
+- 一个以\**开始的参数，代表一个字典
 
-	def mul2(**arg):
+	def mul2(\**arg):
 		print arg
 	
 	mul2(a=11,b=444,c=888)          #输出一个字典{'a':11,'c':888,'b':444}
@@ -483,3 +483,17 @@ I wanted to run a shell command in python without knowing if the shell command i
 		return process.stdout.read()
 
 The process can be killed when it has run for too long(the *os.waitpid* waits for the kill to end and avoids defunct-processes) and furthermore the Popen'ed process' printed is caught and returned if it doesn't timeout.
+
+### Processing XML in Python
+
+Python has quite a few tools available in the standard library to handle XML.
+
+**xml.dom.\*** modules: implement the W3C DOM API. If you're used to working with the DOM API or have some requirement to do so, this package can help you. Note that there are several modules in the xml.dom package, representing different tradeoffs between performance and expressivity.
+
+**xml.sax.\*** modules: implement the SAX API, which trades convenience for speed and memory consumption. SAX is an event-based API meant to parse huge documents "on the fly" without loading them wholly into memory.
+
+**xml.parser.expat**: a direct, low level API to the C-based expat parser. The expat interface is based on event callbacks, similarly to SAX. But unlike SAX, the interface is non-standard and specific to the expat library.
+
+Finally, there's **xml.etree.ElementTree** (from now on, **ET** in short). It provides a lightweight Pythonic API, backed by an effcient C implementation, for parsing and creating XML. Compared to DOM, ET is much faster and has a more pleasant API to work with. Compared to SAX, there is ET.iterparse which also provides "on the fly" parsing without loading the whole document into memory. The performance is on par with SAX, but the API is higher level and much more convenient to use.
+
+My recommendation is to always use ET for XML processing in Python, unless you have very specific needs that may call for the other solutions.

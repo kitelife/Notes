@@ -21,7 +21,7 @@ Another key feature is that the local variables and execution state are automati
 
 ### zip()
 
-zip(seq1, [, seq2 [...]]) -> [(seq1[0], seq2[0] ...), (...)]
+	zip(seq1, [, seq2 [...]]) -> [(seq1[0], seq2[0] ...), (...)])
 
 Return a list of tuples, where each tuple contains the i-th element from each of the argument sequences. The returned list is truncated in length to the length of the shortest argument sequence.
 

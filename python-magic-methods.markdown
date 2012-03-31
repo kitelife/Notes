@@ -129,7 +129,170 @@ unicode()和str()很相似，但是返回的是unicode字符串。注意，如�
 
 许多从其他语言转到Python的人会抱怨它缺乏类的真正封装。(没有办法定义私有变量，然后定义公共的getter和setter)。Python其实可以通过魔术方法来完成封装。:
 
+*\_\_getattr\_\_(self,name)*你可以通过它来定义当用户试图获取一个不存在的属性时的行为。这适用于对普通拼写错误的获取和重定向，对获取一些不建议的属性时候给出警告(如果你愿意你也可以计算并且给出一个值)或者处理一个AttributeError。只有当调用不存在的属性的时候会被返回。然而，这不是一个封装的解决方案。
+
+*\_\_setattr\_\_(self,name,value)*与\_\_getattr\_\_不同，\_\_setattr\_\_是一个封装的解决方案。无论属性是否存在，它都允许你定义对属性的赋值行为。但是你必须对使用\_\_setattr\_\_特别小心。
+
+*\_\_delattr\_\_*与\_\_setattr\_\_相同，但是功能是删除一个属性而不是设置它。
+
+### 创建定制的序列
+
+有很多方法让你的Python类行为可以像内置的序列(dict,tuple,list,string等等)。
+
+**Requirements**
+
+Now that we're taking about creating your own sequences in Python, it's time to talk about *protocols*. Protocols are somewhat similar to interfaces in other languages in that they give you a set of methods you must define. However, in Python protocols are totally informal and require no explicit declarations to implement. Rather, they're more like guidelines.
+
+Why are we taking about protocols now? Because implementing custom container types in Python involves using some of these protocols. First, there's the protocol for defining immutable of containers: to make an immutable container, you need only define \_\_len\_\_ and \_\_getitem\_\_(more on these later). The mutable container protocol requires everything that immutable containers require plus \_\_setitem\_\_ and \_\_delitem\_\_. Lastly, if you want your object to be iterable, you'll have to define \_\_iter\_\_, which returns an iterator. That iterator must conform(遵从)to an iterator protocol, which requires iterators to have methods called \_\_iter\_\_(returning itself) and next.
+
+**The magic behind containers**
+
+*\_\_len\_\_(self)*: Returns the length of the container. Part of the protocol for both immutable and mutable containers.
+
+*\_\_getitem\_\_(self, key)*: Defines behavior for when an item is accessed, using the notation *self[key]*. This is also part of both the mutable and immutable containers protocols. It should also raise appropriate exceptions: *TypeError* if the type of the key is wrong and *KeyError* if there is no corresponding value for the key.
+
+*\_\_setitem\_\_(self, key, value)*: Defines behavior for when an item is assigned to, using the notation *self[key] = value*.This is part of the mutable container protocol. Again, you should raise *KeyError* and *TypeError* where appropriate.
+
+*\_\_delitem\_\_(self, key)*: Defines behavior for when an item is deleted(e.g. del self[key]). This is only part of the mutable container protocol. You must raise the appropriate exception when an invalid key is used.
+
+*\_\_iter\_\_(self)*: Should return an iterator for the container. Iterators are returned in a number of contexts, most notably by the *iter()* built in function and when a container is looped over using the form *for x in container*:. Iterators are their own objects, and they also must define an \_\_iter\_\_ method that returns self.
+
+*\_\_reversed\_\_(self)*: Called to implement behavior for the *reversed()* built in function. Should return a reversed version of the list.
+
+*\_\_contains\_\_(self, item)*: defines behavior for membership tests using *in* and *not in*. Why isn't this part of a sequence protocol, you ask? Because when *\_\_contains\_\_* isn't defined, Python just iterates over the sequence and returns *True* if it comes across the item it's looking for.
+
+*\_\_concat\_\_(self, other)*: Lastly, you can define behavior for concatenating your sequence with another by defining *\_\_concat\_\_*. It should return a new sequence constructed from *self* and *other*. *\_\_concat\_\_* is invoked with the *+* operator when it is called on two sequences.
+
+**An example**
+
+	class FunctionalList:
+		''' A class wrapping a list with some extra functional magic,
+		like head, tail, init, last, drop, and take.
+		'''
+		def __init__(self, values=None):
+			if values is None:
+				self.values = []
+			else:
+				self.values = values
+
+		def __len__(self):
+			return len(self.values)
+
+		def __getitem__(self, key):
+			# if key is of invalid type or value, 
+			# the list values will raise the error
+			return self.values[key]
+
+		def __setitem__(self, key, value):
+			self.values[key] = value
+
+		def __delitem__(self, key):
+			del self.values[key]
+
+		def __iter__(self):
+			return iter(self.values)
+
+		def __reversed__(self):
+			return reversed(self.values)
+
+		def append(self, value):
+			self.values.append(value)
+
+		def head(self):
+			# get the first element
+			return self.values[0]
+
+		def tail(self):
+			# get all elements after the first
+			return self.values[1:]
+
+		def init(self):
+			# get elements up to the last
+			return self.values[:-1]
+
+		def last(self):
+			# get last element
+			return self.values[-1]
+
+		def drop(self, n):
+			# get all elements except first n
+			reutrn self.values[n:]
+
+		def take(self, n):
+			# get first n elements
+			return self.values[:n]
+
+There you have it, a (marginally) useful example of how to implement your own sequence. Of course, there are more useful application of custom sequences, but quite a few of them are already implemented in the standard library (batteries included, right?), like *Counter*, *OrderedDict*, and *NamedTuple*.
+
+### Callable Objects
+
+As you may already know, in Python, functions are first-class objects. This means that they can be passed to functions and methods just as if they were objects of any other kind. This is an incredibly powerful feature.
+
+A special magic method in Python allows instances of your classes to behave as if they were functions, so that you can "call" them, pass them to functions that take functions as arguments, and so on. This is another powerful convenience feature that makes programming in Python that much sweeter.
+
+*\_\_call\_\_(self, [args...])*: Allows an instance of a class to be called as a function. Essentially, this means that *x()* is the same as *x.\_\_call\_\_()*. Note that \_\_call\_\_ takes a variable number of arguments; this means that you define *\_\_call\_\_* as you would any other function, taking however many arguments you'd like it to.
+
+*\_\_call\_\_* can be particularly useful in classes whose instances that need to often change state. "Calling" the instance can be an intuitive and elegant way to change the object's state. An example might be a class representing an entity's position on a plane:
+
+	class Entity:
+		'''Class to represent an entity. Callable to update the entity's position.'''
+		def __init__(self, size, x, y):
+			self.x, self.y = x, y
+		
+		def __call__(self, x, y):
+			'''change the position of the entity'''
+			self.x, self.y = x, y
+
+### Context Managers
+
+In Python 2.5, a new keyword was introduced in Python along with a new method for code reuse, the *with* statement. The concept of managers was hardly new in Python (it was implemented before as a part of the library), but not until PEP 343 was accepted did it achieve status as a first class language construct. You may have seen with statements before:
+
+	with open('foo.txt') as bar:
+		# perform some action with bar
+
+Context managers allow setup and cleanup actions to be taken for objects when their creation is wrapped with a *with* statement. The behavior of the context manager is determined by two magic methods:
+
+*\_\_enter\_\_(self)*: Defines what the context manager should do at the beginning of the block created by the *with* statement. Note that the return value of *\_\_enter\_\_* is bound to the *target* of the *with* statement, or the name after the as.
+
+*\_\_exit\_\_(self, exception_type, exception_value, traceback)*: Defines what the context manager should do after its block has been executed(or terminates). It can be used to handle exceptions, perform cleanup, or do something always done immediately after the action in the block. If the block executes successfully, *exception_type*, *exception_value*, and *traceback* will be *None*. Otherwise, you can choose to handle the exception or let the user handle it; If you want to handle it, make sure *\_\_exit\_\_* returns *True* after all is said an done. If you don't want the exception to be handled by the context manager, just let it happen.
+
+*\_\_enter\_\_* and *\_\_exit\_\_* can be useful for specific classes that have well-defined and common behavior for setup and cleanup. You can also use these methods to create generic context managers that wrap other objects.
+
+	class Closer:
+		''' A context manager to automatically close an object with a close method in a with statement'''
+		def __init__(self, obj):
+			self.obj = obj
+
+		def __enter__(self):
+			return self.obj		# bound to target
+
+		def __exit__(self, exception_type, exception_val, trace):
+			try:
+				self.obj.close()
+			except AttributeError:	# obj isn't closable
+				print 'Not closable'
+				return True		# exception handled successfully
+
+
+	>>> from magicmethods import Closer
+	>>> from ftplib import FTP
+	>>> with Closer(FTP('ftp.somesite.com')) as conn:
+	...		conn.dir()
+	...
+	# output omitted for brevity
+	>>> conn.dir()
+	# long AttributeError message, can't use a connection that's closed
+	>>> with Closer(int(5)) as i:
+	...		i += 1
+	...
+	Not closable
+	>>> i
+	6
+
+
+
 ###参考
+
 
 中文链接: [Python魔术方法指南](http://pycoders-weekly-chinese.readthedocs.org/en/latest/issue6/a-guide-to-pythons-magic-methods.html)
 

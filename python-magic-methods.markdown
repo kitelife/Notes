@@ -153,7 +153,7 @@ Why are we taking about protocols now? Because implementing custom container typ
 
 *\_\_setitem\_\_(self, key, value)*: Defines behavior for when an item is assigned to, using the notation *self[key] = value*.This is part of the mutable container protocol. Again, you should raise *KeyError* and *TypeError* where appropriate.
 
-*\_\_delitem\_\_(self, key)*: Defines behavior for when an item is deleted(e.g. del self[key]). This is only part of the mutable container protocol. You must raise the appropriate exception when an invalid key is used.
+*\_\_delitem\_\_(self, key)*: Defines behavior for when an item is deleted(e.g. del self [key]). This is only part of the mutable container protocol. You must raise the appropriate exception when an invalid key is used.
 
 *\_\_iter\_\_(self)*: Should return an iterator for the container. Iterators are returned in a number of contexts, most notably by the *iter()* built in function and when a container is looped over using the form *for x in container*:. Iterators are their own objects, and they also must define an \_\_iter\_\_ method that returns self.
 
@@ -289,10 +289,79 @@ Context managers allow setup and cleanup actions to be taken for objects when th
 	>>> i
 	6
 
+### Pickling Your Objects
 
+If you spend time with other Pythonistas, chances are you've at least heard of pickling. Pickling is a serialization process for Python data structures, and can be incredibly useful when you need to store an object and retrieve it later (usually for caching). It's also a major source of worries and confusion.
+
+Pickling is so important that it doesn't just have its own module (*pickle*), but its own *protocol* and the magic methods to go with it.
+
+	import pickle
+
+	data = {'foo': [1,2,3],
+			'bar': ('hello', 'world'),
+			'baz': True}
+	jar = open('data.pkl', 'wb')
+	pickle.dump(data, jar)
+	jar.close()
+
+Now, a few hours later, we want it back. All we have to do is unpickle it:
+
+	import pickle
+
+	pkl_file = open('data.pkl', 'rb')
+	data = pickle.load(pkl_file)
+	print data
+	pkl_file.close()
+
+Now, for a word of caution: pickling is not perfect. Pickle files are easily corrupted on accident and on purpose. Pickling may be more secure than using flat text files, but it still can be used to run malicious code. It's also incompatible across versions of Python, so don't expect to distribute pickled objects and expect people to be able to open them. However, it can also be a powerful tool for caching and other common serialization tasks.
+
+**Pickling your own Objects**
+
+Pickling isn't just for built-in types. It's for any class that follows the pickle protocol. The pickle protocol has four optional methods for Python objects to customize how they act.
+
+*\_\_getinitargs\_\_(self)*: If you'd like for \_\_init\_\_ to be called when your class is unpickled, you can define \_\_getinitargs\_\_, which should return a tuple of the arguments that you'd lile to be passed to \_\_init\_\_. Note that this method will only work for old-style classes.
+
+*\_\_getnewargs\_\_(self)*: For new-style classes, you can influence what arguments get passed to \_\_new\_\_ upon unpickling. This method should also return a tuple of arguments that will then be passed to \_\_new\_\_
+
+*\_\_getstate\_\_(self)*: Instead of the object's \_\_dict\_\_ attribute being stored, you can return a custom state to be stored when the object is pickled. That state will be used by *\_\_setstate\_\_* when the object is unpickled.
+
+*\_\_setstate\_\_(self, state)*: When the object is unpickled, if *\_\_setstate\_\_* is defined the object's state will be passed to it instead of directly applied to the object's *\_\_dict\_\_*. This goes hand in hand with *\_\_getstate\_\_*: when both are defined, you can represent the object's pickled state however you want with whatever you want.
+
+**An Example**
+
+Our example is *Slate*, which remember what its values have been and when those values were written to it. However, this particular slate goes blank each time it is pickled: the current value will not be saved.
+
+	import time
+
+	class Slate:
+		'''class to store a string and a changelog, and forget its value when pickled'''
+		def __init__(self, value):
+			self.value = value
+			self.last_change = time.asctime()
+			self.history = {}
+
+		def change(self, new_value):
+			# change the value. Commit last value to history
+			self.history[self.last_change] = self.value
+			self.value = new_value
+			self.last_change = time.asctime()
+		
+		def print_changes(self):
+			print 'Changelog for Slate object:'
+			for k, v in self.history.items():
+				print '%s\t %s' %(k, v)
+
+		def __getstate__(self):
+			# Deliberately do not return self.value or self.last_change.
+			# We want to have a "blank slate" when we unpickle
+			return self.history
+
+		def __setstate__(self, state):
+			# make self.history = state and last_change and value undefined
+			self.history = state
+			self.value, self.last_change = None, None
 
 ###参考
-
 
 中文链接: [Python魔术方法指南](http://pycoders-weekly-chinese.readthedocs.org/en/latest/issue6/a-guide-to-pythons-magic-methods.html)
 

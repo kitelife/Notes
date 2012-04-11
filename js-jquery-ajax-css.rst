@@ -354,3 +354,9 @@ DOM基本对象
 
 DOM中的基本对象有5个，即Document, Node, NodeList, Element和Attr。
 
+CSS
+-----
+
+CSS是Cascading Style Sheet的缩写，中文为"层叠样式表"，是一组格式设置规则，用于控制网页的显示。通过CSS可以将网页内容与表现形式分离，使网页更加简练，缩短加载时间，还能够使得站点外观的维护更加容易。
+
+

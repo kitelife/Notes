@@ -274,8 +274,38 @@ window对象的status和location属性能完成一些有用的任务。其中，
 
 - 方法: open,close; alert; confirm; prompt; blur,focus; scroll; setTimeout;
 
-**Document** 对象
+**Document对象**
 
+document是一个文档对象，使用document对象可以对HTML文档进行检查，修改或添加内容等操作，并且可以处理该文档内部的事件。
 
+- 属性: title, bgColor, fgColor, linkColor, alinkColor, vlinkColor, URL, fileCreatedDate, fileModifiedDate, charset, fileSize, cookie
+
+- 方法: 
+    - write() : 动态向页面写入内容
+    - createElement() : 创建一个HTML标签对象
+    - getElementById(id) : 获得指定id值的对象
+    - getElementByName(name) : 获得指定name值的对象
+
+**location对象**
+
+location对象包含当前对象的URL，该对象有一个常用的href属性和reload方法。
+
+href属性用于跳转到指定的网页，相当于<a>标签的功能。例如，要把当前页面跳转到default.html，则实现代码如下:
+::
+
+    window.location.href = "default.html";
+
+完整代码如下:
+::
+
+    <body>
+        <a href="#" onClick="Javascript:window.location.href='default.html'">按此处到default页面</a>
+    </body>
+
+**其他对象**
+
+- history对象
+- external对象
+- screen对象
 
 

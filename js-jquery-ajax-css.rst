@@ -308,4 +308,49 @@ href属性用于跳转到指定的网页，相当于<a>标签的功能。例如�
 - external对象
 - screen对象
 
+DOM
+-----
+
+DOM(Document Object Model) is a cross-platform and language-independent convention for representing and interacting with objects in HTML, XHTML and XML documents. Objects in the DOM tree may be addressed and manipulated by using methods on the objects. The public interface of a DOM is specified in its application programming interface(API).
+
+从1998年W3C发布第一级DOM规范到现在，共有3个DOM级别，它们分别是DOM Level 1, DOM Level 2和DOM Level 3。
+
+- DOM Level 1以映射文档结构为目标，由DOM核心和DOM HTML两个模块组成。
+- DOM Level 2添加了命名空间支持，增加了几个模块以支持级联样式表，事件以及增强树的操作。
+- DOM Level 3通过引入统一方式载入，保存和检验文档方法对DOM进行进一步扩展，扩展后，DOM核心可支持XML1.0的所有内容，包括XML Infoset, XPath和XML Base。
+
+另外，DOM按照标准不同被分为不同的部分，即DOM Core, XML DOM和HTML DOM等。其中，DOM Core定义了一套标准的针对任何结构化文档的对象；XML DOM定义了一套标准的针对XML文档的对象；HTML DOM定义了一套标准的针对HTML文档的对象。
+
+HTML DOM中的节点树
+^^^^^^^^^^^^^^^^^^^^
+
+在DOM中，HTML文档的层次结构被映射为一个树形结构，文档的每一个成分都是这棵树中的节点(node)。其中，整个文档是一个文档节点(Document)，每个HTML标签是一个元素节点(Element)，每个标签中的属性是一个属性节点(Attr)，文本是一个文本结点(Text)，注释属于注释节点(Comment)。
+
+DOM的4个基本接口
+^^^^^^^^^^^^^^^^^^
+
+DOM利用对象将文档模型化，这些模型不仅描述了文档的结构，还定义了模型中对象的行为。也就是说，在DOM中，节点不仅仅是数据结构中的节点，而是对象，对象中包含属性和方法。在DOM中，对象模型要实现用来表示和操作文档的接口，接口的行为和属性，接口之间的关系以及互操作。
+
+在DOM接口规范中，有Document,Node,NodeList以及NamedNodeMap这4个基本接口:
+
+- **Document接口**
+
+Document接口代表了整个文档，它是整棵文档树的根，提供了对文档树中的节点进行访问和操作的入口。
+
+- **Node接口**
+
+DOM接口中有很大一部分接口是从Node接口继承过来的。例如，Element,Attr,CDATASection等接口都是从Node继承过来的。在DOM树中，Node接口代表了树中每个节点，提供了访问DOM树中各个节点的属性和方法，并给出了对DOM树中的元素进行遍历的支持。
+
+- **NodeList接口**
+
+NodeList接口提供了对节点集合的抽象定义，它并不包含如何实现这个节点集合的定义。NodeList用于表示有顺序关系的一组节点，如某个节点的子节点序列。另外，它还出现在一些方法的返回值中，如getElementsByTagName()。
+
+- **NamedNodeMap接口**
+
+通过NamedNodeMap接口，可以建立节点名和节点之间的一一映射关系，从而利用节点名可以直接访问特定的节点，这个接口主要用在属性节点的表示上。
+
+DOM基本对象
+^^^^^^^^^^^^^
+
+DOM中的基本对象有5个，即Document, Node, NodeList, Element和Attr。
 

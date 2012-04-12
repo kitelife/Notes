@@ -50,6 +50,46 @@ const对象默认为文件的局部变量。
 
 **引用**
 
+引用(reference)就是对象的另一个名字。在实际程序中，引用主要用作函数的形式参数。
+
+引用是一种复合类型(compound type)。通过在变量名前添加"&"符号来定义。复合类型是指用其他类型定义的类型。在引用的情况下，每一种引用类型都"关联到"某一其他类型。不能定义引用类型的引用，但可以定义任何其他类型的引用。
+
+引用必须用与该引用同类型的对象进行初始化:
+
+	int ival = 1024;
+	int &refVal = ival;	// ok: refVal refers to ival
+	int &refVal2;			// error: a reference must be initialized
+	int &refVal3 = 10;		// error: initializer must be an object
+
+- 引用是别名：因为引用只是它绑定的对象的另一个名字，作用在引用上的所有操作事实上都是作用在该引用绑定的对象上。
+
+- const引用：const**引用**是指向const对象的引用
+
+	const int ival = 1024;
+	const int &refVal = ival;		// ok: both reference and object are const
+	int &ref2 = ival;					// error: nonconst reference to a const object
+
+**typedef**
+
+typedef通常被用于以下三种目的:
+
+	- 为了隐藏特定类型的实现，强调使用类型的目的
+	
+	- 简化复杂的类型定义，使其更易理解
+
+	- 允许一种类型用于多个目的，同时使得每次使用该类型的目的明确。
+
+**类类型**
+
+用class和struct关键字定义类的唯一差别在于默认访问级别：默认情况下，struct的成员为public，而class的成员为private。
+
+**编写自己的头文件**
+
+- 头文件用于声明而不是用于定义：对于头文件不应该含有定义这一规则，有三个例外，头文件可以定义类，值在编译时就已知道的const对象和inline函数。 
+
+标准库类型
+---------
+
 
 
 其他

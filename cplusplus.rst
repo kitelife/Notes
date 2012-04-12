@@ -5,9 +5,9 @@ C++语言学习
 -------------
 
 C++支持两种初始化变量的形式: *复制初始化*(copy-initialization)和*直接初始化*(direct-initialization)。复制初始化语法用等号(=)，直接初始化则是把初始化式放在括号中:
-
-		int ival(1024);		// direct-initialization
-		int ival = 1024;		// copy-initialization
+::
+	int ival(1024);		// direct-initialization
+	int ival = 1024;		// copy-initialization
 
 初始化内置类型的对象只有一种方法: 提供一个值，并且把这个值复制到新定义的对象中。对内置对象来说，复制初始化和直接初始化几乎没有差别。
 
@@ -30,15 +30,15 @@ C++支持两种初始化变量的形式: *复制初始化*(copy-initialization)�
 变量的**定义**(definition)用于为变量分配存储空间，还可以为变量指定初始值。在一个程序中，变量的定义有且仅有一个定义。
 
 **声明**(declaration)用于向程序表明变量的类型和名字。定义也是声明: 当定义变量时我们声明了它的类型和名字。可以通过使用extern关键字声明变量而不定义它。不定义变量的声明包括对象名，对象类型和对象类型前的关键字extern:
-
-		extern int i;		// declares but does not define i
-		int i;				// declares and defines i
+::
+	extern int i;		// declares but does not define i
+	int i;				// declares and defines i
 
 extern声明不是定义，也不分配存储空间。事实上，它只是说明变量定义在程序的其他地方。程序中变量可以声明多次，但只能定义一次。
 
 *如果声明有初始化式，那么它可被当作是定义，即使声明标记为extern：
-
-		extern double pi = 3.1416;		// definition
+::
+	extern double pi = 3.1416;		// definition
 
 只有当extern声明位于函数外部时，才可以含有初始化式。
 
@@ -55,7 +55,7 @@ const对象默认为文件的局部变量。
 引用是一种复合类型(compound type)。通过在变量名前添加"&"符号来定义。复合类型是指用其他类型定义的类型。在引用的情况下，每一种引用类型都"关联到"某一其他类型。不能定义引用类型的引用，但可以定义任何其他类型的引用。
 
 引用必须用与该引用同类型的对象进行初始化:
-
+::
 	int ival = 1024;
 	int &refVal = ival;	// ok: refVal refers to ival
 	int &refVal2;			// error: a reference must be initialized
@@ -64,20 +64,20 @@ const对象默认为文件的局部变量。
 - 引用是别名：因为引用只是它绑定的对象的另一个名字，作用在引用上的所有操作事实上都是作用在该引用绑定的对象上。
 
 - const引用：const**引用**是指向const对象的引用
-
-		const int ival = 1024;
-		const int &refVal = ival;		// ok: both reference and object are const
-		int &ref2 = ival;					// error: nonconst reference to a const object
+::
+	const int ival = 1024;
+	const int &refVal = ival;		// ok: both reference and object are const
+	int &ref2 = ival;					// error: nonconst reference to a const object
 
 **typedef**
 
 typedef通常被用于以下三种目的:
 
-	- 为了隐藏特定类型的实现，强调使用类型的目的
+- 为了隐藏特定类型的实现，强调使用类型的目的
 	
-	- 简化复杂的类型定义，使其更易理解
+- 简化复杂的类型定义，使其更易理解
 
-	- 允许一种类型用于多个目的，同时使得每次使用该类型的目的明确。
+- 允许一种类型用于多个目的，同时使得每次使用该类型的目的明确。
 
 **类类型**
 
@@ -112,40 +112,40 @@ string类型的输入:
 - 读取字符直至再次遇到空白字符，读取终止。
 
 *读入未知数目的string对象* :
+::
+	#include <iostream>
+	#include <string>
+	using namespace std;
 
-		#include <iostream>
-		#include <string>
-		using namespace std;
+	int main()
+	{
+		string word;
+		// read until end-of-file, writing each word to a new line
+		while(cin >> word)
+			cout << word << endl;
 
-		int main()
-		{
-			string word;
-			// read until end-of-file, writing each word to a new line
-			while(cin >> word)
-				cout << word << endl;
-
-			return 0;
-		}
+		return 0;
+	}
 
 *用getline读取整行文本*
 
 另外还有一个有用的string IO操作: **getline** 。这个函数接受两个参数：一个输入流对象和一个string对象。getline函数从输入流的下一行读取，并保存读取的内容到string对象中，但不包括换行符。和标准输入操作符不一样的是，getline并不忽略行开头的换行符。只要getline遇到换行符，即便它是输入的第一个字符，getline也将停止读取并返回。如果第一个字符就是换行符，则string参数将被置为空string。
 
 getline函数将istream参数作为返回值，和标准输入操作符一样也把它用作判断条件。
+::
+	#include <iostream>
+	#include <string>
+	using namespace std;
 
-		#include <iostream>
-		#include <string>
-		using namespace std;
+	int main()
+	{
+		string line;
+		// read line at time until end-of-file
+		while(getline(cin, line))
+			cout << line << endl;
 
-		int main()
-		{
-			string line;
-			// read line at time until end-of-file
-			while(getline(cin, line))
-				cout << line << endl;
-
-			return 0;
-		}
+		return 0;
+	}
 
 **string对象的操作**
 
@@ -170,26 +170,25 @@ vector的下标操作只能用于获取已存在的元素。
 
 - *在写C++程序时，大部分出现空格符的地方可用换行符代替。这条规则的一个例外是字符串字面值中的空格符不能用换行符代替。另一个例外是空格符不允许出现在预处理指示中。*
 - 读入未知数目的输入:
+::
+	#include <iostream>
+	using namespace std;
+	
+	int main()
+	{
+		int sum = 0, value;
+		// read till end-of-file, calculating a running total of all values read
+		while(cin >> value)
+			sum += value;
 
-		#include <iostream>
-		using namespace std;
-		
-		int main()
-		{
-			int sum = 0, value;
-			// read till end-of-file, calculating a running total of all values read
-			while(cin >> value)
-				sum += value;
-
-			cout << "Sum is: " << sum << endl;
-
-			return 0;
-		}
+		cout << "Sum is: " << sum << endl;
+		return 0;
+	}
 
 - 通常把一个对象定义在它首次使用的地方是一个很好的方法，这样可以提高程序的可读性。
 
 - 使用const限定符可以把一个变量定义为一个常量。因为常量在定义后就不能被修改，所以定义时必须初始化:
-
-		const string hi = "hello!";	// ok: initialized
-		const int i, j = 0;				// error: i is uninitialized const
+::
+	const string hi = "hello!";		// ok: initialized
+	const int i, j = 0;				// error: i is uninitialized const
 

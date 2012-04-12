@@ -90,6 +90,69 @@ typedef通常被用于以下三种目的:
 标准库类型
 ---------
 
+标准库string类型
+^^^^^^^^^^^^^^^^
+
+**string对象的定义和初始化**
+
+- string s1;				// 调用默认构造函数，s1为空串
+
+- string s2(s1);			// 将s2初始化为s1的一个副本
+
+- string s3("value");		// 将s3初始化为一个字符串字面值副本
+
+- string s4(n, 'c');		// 将s4初始化为字符'c'的n个副本
+
+**string对象的读写**
+
+string类型的输入:
+
+- 读取并忽略开头所有的空白字符(如空格，换行符，制表符)
+
+- 读取字符直至再次遇到空白字符，读取终止。
+
+*读入未知数目的string对象* :
+
+		#include <iostream>
+		#include <string>
+		using namespace std;
+
+		int main()
+		{
+			string word;
+			// read until end-of-file, writing each word to a new line
+			while(cin >> word)
+				cout << word << endl;
+
+			return 0;
+		}
+
+*用getline读取整行文本*
+
+另外还有一个有用的string IO操作: **getline** 。这个函数接受两个参数：一个输入流对象和一个string对象。getline函数从输入流的下一行读取，并保存读取的内容到string对象中，但不包括换行符。和标准输入操作符不一样的是，getline并不忽略行开头的换行符。只要getline遇到换行符，即便它是输入的第一个字符，getline也将停止读取并返回。如果第一个字符就是换行符，则string参数将被置为空string。
+
+getline函数将istream参数作为返回值，和标准输入操作符一样也把它用作判断条件。
+
+		#include <iostream>
+		#include <string>
+		using namespace std;
+
+		int main()
+		{
+			string line;
+			// read line at time until end-of-file
+			while(getline(cin, line))
+				cout << line << endl;
+
+			return 0;
+		}
+
+**string对象的操作**
+
+当进行string对象和字符串字面值混合连接操作时，+操作符的左右操作数必须至少有一个是string类型的。
+
+标准库vector类型
+^^^^^^^^^^^^^^^^
 
 
 其他

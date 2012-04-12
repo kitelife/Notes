@@ -6,6 +6,7 @@ C++语言学习
 
 C++支持两种初始化变量的形式: *复制初始化*(copy-initialization)和*直接初始化*(direct-initialization)。复制初始化语法用等号(=)，直接初始化则是把初始化式放在括号中:
 ::
+
 	int ival(1024);		// direct-initialization
 	int ival = 1024;		// copy-initialization
 
@@ -31,6 +32,7 @@ C++支持两种初始化变量的形式: *复制初始化*(copy-initialization)�
 
 **声明**(declaration)用于向程序表明变量的类型和名字。定义也是声明: 当定义变量时我们声明了它的类型和名字。可以通过使用extern关键字声明变量而不定义它。不定义变量的声明包括对象名，对象类型和对象类型前的关键字extern:
 ::
+
 	extern int i;		// declares but does not define i
 	int i;				// declares and defines i
 
@@ -56,6 +58,7 @@ const对象默认为文件的局部变量。
 
 引用必须用与该引用同类型的对象进行初始化:
 ::
+
 	int ival = 1024;
 	int &refVal = ival;	// ok: refVal refers to ival
 	int &refVal2;			// error: a reference must be initialized
@@ -65,6 +68,7 @@ const对象默认为文件的局部变量。
 
 - const引用：const**引用**是指向const对象的引用
 ::
+
 	const int ival = 1024;
 	const int &refVal = ival;		// ok: both reference and object are const
 	int &ref2 = ival;					// error: nonconst reference to a const object
@@ -111,8 +115,9 @@ string类型的输入:
 
 - 读取字符直至再次遇到空白字符，读取终止。
 
-*读入未知数目的string对象* :
+*读入未知数目的string对象*
 ::
+
 	#include <iostream>
 	#include <string>
 	using namespace std;
@@ -133,6 +138,7 @@ string类型的输入:
 
 getline函数将istream参数作为返回值，和标准输入操作符一样也把它用作判断条件。
 ::
+
 	#include <iostream>
 	#include <string>
 	using namespace std;
@@ -169,8 +175,9 @@ vector的下标操作只能用于获取已存在的元素。
 - endl是一个特殊值，称为**操纵符(manipulator)**，将它写入输出流时，具有输出换行的效果，并刷新与设备相关联的缓冲区。通过刷新缓冲区，用户可立即看到写入到流中的输出。
 
 - *在写C++程序时，大部分出现空格符的地方可用换行符代替。这条规则的一个例外是字符串字面值中的空格符不能用换行符代替。另一个例外是空格符不允许出现在预处理指示中。*
-- 读入未知数目的输入:
+- 读入未知数目的输入
 ::
+
 	#include <iostream>
 	using namespace std;
 	
@@ -187,8 +194,9 @@ vector的下标操作只能用于获取已存在的元素。
 
 - 通常把一个对象定义在它首次使用的地方是一个很好的方法，这样可以提高程序的可读性。
 
-- 使用const限定符可以把一个变量定义为一个常量。因为常量在定义后就不能被修改，所以定义时必须初始化:
+- 使用const限定符可以把一个变量定义为一个常量。因为常量在定义后就不能被修改，所以定义时必须初始化
 ::
+
 	const string hi = "hello!";		// ok: initialized
 	const int i, j = 0;				// error: i is uninitialized const
 

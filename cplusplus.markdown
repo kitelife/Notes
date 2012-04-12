@@ -10,17 +10,17 @@ C++语言学习
 - 读入未知数目的输入:
 ::
 
-	#include <iostream>
-	using namespace std;
-	
-	int main()
-	{
-		int sum = 0, value;
-		// read till end-of-file, calculating a running total of all values read
-		while(cin >> value)
-			sum += value;
+		#include <iostream>
+		using namespace std;
+		
+		int main()
+		{
+			int sum = 0, value;
+			// read till end-of-file, calculating a running total of all values read
+			while(cin >> value)
+				sum += value;
 
-		cout << "Sum is: " << sum << endl;
+			cout << "Sum is: " << sum << endl;
 
-		return 0;
-	}
+			return 0;
+		}

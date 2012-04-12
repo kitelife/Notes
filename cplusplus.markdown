@@ -42,6 +42,16 @@ extern声明不是定义，也不分配存储空间。事实上，它只是说�
 
 只有当extern声明位于函数外部时，才可以含有初始化式。
 
+**const限定符**
+
+const对象默认为文件的局部变量。
+
+*非const变量默认为extern。要使const变量能够在其他的文件中访问，必须显式地指定它为extern。*
+
+**引用**
+
+
+
 其他
 ----
 
@@ -64,4 +74,11 @@ extern声明不是定义，也不分配存储空间。事实上，它只是说�
 
 			return 0;
 		}
+
+- 通常把一个对象定义在它首次使用的地方是一个很好的方法，这样可以提高程序的可读性。
+
+- 使用const限定符可以把一个变量定义为一个常量。因为常量在定义后就不能被修改，所以定义时必须初始化:
+
+		const string hi = "hello!";	// ok: initialized
+		const int i, j = 0;				// error: i is uninitialized const
 

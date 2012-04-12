@@ -231,6 +231,90 @@ C语言程序使用一对标准库函数malloc和free在自由存储区分配存
 
 在关键字delete和指针之间的空方括号对是必不可少的：它告诉编译器该指针指向的是自由存储区中的数组，而并非单个对象。
 
+表达式
+-------
+
+箭头操作符
+^^^^^^^^^^
+
+C++语言为包含点操作符和解引用操作符的表达式提供了一个同义词：箭头操作符(->)。
+
+点操作符用于获取类类型对象的成员：
+::
+
+	item1.same_isbn(item2);			// run the same_isbn member of item1
+
+如果有一个指向Sales_item对象的指针(或迭代器)，则在使用点操作符前，需对该指针(或迭代器)进行解引用:
+::
+
+	Sales_item *sp = &item1;
+	(*sp).same_isbn(item2);		// run same_isbn on object to which sp points
+	sp->same_isbn(item2);		// 与(*sp).same_isbn(item2);等价
+
+new和delete表达式
+^^^^^^^^^^^^^^^^^^
+
+除了动态创建和释放数组，new和delete也可用于动态创建和释放单个对象。
+
+动态创建对象时，只需指定其数据类型，而不必为该对象命名。取而代之的是，new表达式返回指向新创建对象的指针，我们通过该指针来访问对象:
+::
+
+	int i;		// named, uninitialized int variable
+	int *pi = new int;		// pi points to dynamically allocated, unnamed, uninitialized int
+
+**动态创建对象的初始化**
+
+动态创建的对象可用初始化变量的方式实现初始化:
+::
+
+	int i(1024);		// value of i is 1024
+	int *pi = new int(1024);			// object to which pi points is 1024
+	string s(10, '9');				// value of s is "9999999999"
+	string *ps = new string(10, '9');		// *ps is "9999999999"
+
+**动态创建对象的默认初始化**
+
+如果不提供显示初始化，动态创建的对象与在**函数内**定义的变量初始化方式相同。对于类类型的对象，用该类的默认构造函数初始化；而内置类型的对象则无初始化。
+::
+
+	string *ps = new string;		// initialized to empty string
+	int *pi = new int;				// pi points to an uninitialized int
+
+**撤销动态创建的对象**
+
+::
+
+	delete pi;
+
+该命令释放pi指向的int型对象所占用的内存空间。
+
+*如果指针指向不是用new分配的内存地址，则在该指针上使用delete是不合法的。*
+
+**零值指针的删除**
+
+如果指针的值为0，则在其上做delete操作是合法的，但这样做没有任何意义:
+
+	int *pi = 0;
+	delete pi;		// ok: always ok to delete a pointer that is equal to 0
+
+C++保证：删除0值的指针是安全的。
+
+**在delete之后，重设指针的值**
+
+执行语句:
+::
+
+	delete p;
+
+后，p变成没有定义。在很多机器上，尽管p没有定义，但仍然存放了它之前所指向对象的地址，然而p所指向的内存已经被释放，因此p不再有效。
+
+删除指针后，该指针变成**悬垂指针**(dangling pointer)。悬垂指针指向曾经存放对象的内存，但该对象已经不再存在了。悬垂指针往往导致程序错误，而且很难检测出来。
+
+*一旦删除了指针所指向的对象，立即将指针置为0，这样就非常清楚第表明指针不再指向任何对象。*
+
+
+
+
 其他
 ----
 

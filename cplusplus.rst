@@ -407,6 +407,61 @@ const对象，指向const对象的指针或引用只能用于调用其const成�
 
 可基于函数的引用形参是指向const对象还是指向非const形参，实现函数重载。将引用形参定义为const来重载函数是合法的，因为编译器可以根据实参是否为const确定调用哪一个函数。
 
+指向函数的指针
+^^^^^^^^^^^^^
+
+函数指针是指指向函数而非指向对象的指针。像其他指针一样，函数指针也指向某个特定的类型。函数类型由其返回类型以及形参表确定，而与函数名无关:
+::
+
+	// pf points to function returning bool that takes two const string references
+	bool (*pf)(const string &, const string &);
+
+*\*pf两侧的圆括号是必须的:*
+::
+
+	// declares a function named pf that returns a bool*
+	bool *pf(const string &, const string &);
+
+**用typedef简化函数指针的定义**
+::
+
+	typedef bool (*cmpFcn)(const string &, const string &);
+
+该定义表示cmpFcn是一种指向函数的指针类型的名字。该指针类型为"指向返回bool类型并带有两个const string引用形参的函数的指针"。在要使用这种函数指针类型时，只需直接使用cmpFcn即可，不必每次都把整个类型声明全部写出来。
+
+**指向函数的指针的初始化和赋值**
+
+在引用函数名但又没有调用该函数时，函数名将被自动解释为指向函数的指针。假设有函数:
+::
+
+	// compares lengths of two strings
+	bool lengthCompare(const string &, const string &);
+
+除了用作函数调用的左操作数以外，对lengthComapare的任何使用都被解释为如下类型的指针:
+::
+
+	bool (*)(const string &, const string &);
+
+可使用函数名对函数指针做初始化或赋值：
+::
+
+	cmpFcn pf1 = 0;			// ok: unbound pointer to function
+	cmpFcn pf2 = lengthComapre;		// ok: pointer type matches function's type
+	pf1 = lengthComapare;			// ok: pointer type matches function's type
+	pf2 = pf1;						// ok: pointer type match
+
+此时，直接引用函数名等效于在函数名上应用取地址操作符:
+::
+
+	cmpFcn pf1 = lengthCompare;
+	cmpFcn pf2 = &lengthCompare;
+
+*函数指针只能通过同类型的函数或函数类型或0值常量表达式进行初始化或赋值。*
+
+标准IO库
+--------
+
+
 其他
 ----
 

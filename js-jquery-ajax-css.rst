@@ -783,4 +783,40 @@ jQuery中的DOM操作
 
 **内部插入**
 
+使用工厂函数创建的节点并不能马上动态地显示到网页中，还需要有一个节点对象到DOM文档树中的过程。关于如何向DOM文档树中插入节点，jQuery提供了很多方法，有些在节点内部插入，有的在节点外部插入，有的在节点之前插入，有的在节点之后插入。
+
+*append()方法*：在指定节点的尾部插入指定内容，语法格式如下
+
+语法1
+::
+
+	$(selector).append(content);
+
+语法2
+::
+
+	$(selector).append(function(index, [html]));
+
+*appendTo()方法*：语法格式如下
+::
+
+	$(content).appendTo(selector);
+
+事实上，这个方法的效果和append()方法完全相同。
+
+*prepend()方法*：在指定节点的头部插入指定内容。语法格式如下
+
+语法1
+::
+
+	$(selector).prepend(content);
+
+语法2
+::
+
+	$(selector).prepend(function(index, [html]));
+
+*prependTo()方法*
+
+**外部插入**
 

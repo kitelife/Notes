@@ -659,3 +659,52 @@ jQuery
 
 8) 完善的学习资源
 
+**jQuery核心函数**
+
+在jQuery中，所有的DOM对象都将封装成jQuery对象，而且只有jQuery对象才能使用jQuery的方法或属性来执行相应的操作。所以，jQuery提供了一个可以将DOM对象封装成jQuery对象的函数，就是jQuery核心函数jQuery()，也称为工厂函数。
+
+jQuery核心函数有7个重载，分别如下：
+
+(1). jQuery()：在jQuery1.4以后的版本中，该函数返回一个空jQuery对象；在jQuery1.4以前的版本中，该函数会返回一个包含document节点的对象。
+
+(2). jQuery(elements)：该函数将一个或多个DOM元素转化为jQuery对象(或jQuery集合)。另外，这个函数也可以把XML文档和Window对象作为有效的参数。
+
+(3). jQuery(callback)：该函数是jQuery(document).ready(callback)的简写。该函数将绑定一个在DOM文档载入完成后执行的函数。页面中所有需要在DOM加载完时执行的jQuery操作，都需要包含在这个函数中。
+
+(4). jQuery(expression,[context])：该函数接收一个包含jQuery选择器的字符串，然后用这个字符串去匹配一个或多个元素。
+
+(5). jQuery(html)：该函数根据提供的HTML标记代码，动态创建由jQuery对象封装的DOM元素，代码如下：
+::
+
+	jQuery("<div></div>")
+
+(6). jQuery(html, props)：该函数根据提供的HTML标记代码，动态创建由jQuery对象封装的DOM元素，同时对该DOM元素设置一组属性，事件等，代码如下：
+::
+
+	jQuery("<input>",{type: "text", name="username"})
+
+(7). jQuery(html, [ownerDocument])：该函数根据提供的HTML标记代码，动态创建由jQuery对象封装的DOM元素，并且指定该DOM元素所在的文档。
+
+另外，jQuery核心函数有另一个非常简单的别名$(美元符号，英文为dollar)。
+
+需要注意的是，jQuery对象并不是普通对象，所以一般的变量无法对其直接引用，像下面这样使用就会报错:
+::
+
+	var obj = jquery();
+
+不过，只要在变量名前面加一个符号$，就没有错误了。代码如下:
+::
+
+	var $obj = jquery();
+
+jQuery选择器
+^^^^^^^^^^^^^
+
+分为基本选择器和过滤选择器，并且配合使用，组合成一个选择器字符串，主要的区别是过滤选择器是指定条件从前面匹配的内容中筛选。过滤选择器也可以单独使用，表示从全部的"*"中筛选。
+
+基本选择器包括CSS选择器，层级选择器和表单域选择器。
+
+**CSS选择器**
+
+jQuery借用了一套CSS选择器，共有5种，即标签选择器，ID选择器，类选择器，通用选择器，群组选择器。
+

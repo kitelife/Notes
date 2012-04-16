@@ -830,3 +830,18 @@ jQuery中的DOM操作
 
 在jQuery中，有3个方法可以完成该功能，分别是wrap()，wrapAll()以及wrapInner()。另外还有一个方法unwrap()刚好和这3个方法的功能相反，它不是包裹而是解除包裹。
 
+jQuery与Ajax
+^^^^^^^^^^^^^
+
+Ajax的精彩之处在于它的异步交互，使用户不必等待页面加载，实现浏览器和服务器的请求响应操作。
+
+Ajax技术需要使用支持Ajax技术的Web浏览器作为运行平台。
+
+**Ajax的原理**
+
+Ajax的核心是JavaScript的XMLHttpRequest对象，它是一种支持异步请求的技术。简而言之，使用JavaScript可以控制XMLHttpRequest对象向服务器提出请求并处理响应，而不影响用户对页面的正常访问。
+
+在非Ajax应用中，浏览器与服务器交互的方式是：浏览器发出请求，服务器对请求做出响应，浏览器收到响应请求，刷新页面内容。整个过程中，页面一片空白，用户只能等待整个过程完成。
+
+.. image:: https://lh5.googleusercontent.com/-R0Wzjsx943Y/T4uomXDQBDI/AAAAAAAABAI/xYt56AnDHoo/s475/ajax-fig1_small.png
+

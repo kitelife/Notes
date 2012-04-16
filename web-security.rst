@@ -134,4 +134,9 @@ Some crawlers support a Sitemap directive, allowing multiple Sitemaps in the sam
     Sitemap: http://www.gstatic.com/s2/sitemaps/profiles-sitemap.xml
     Sitemap: http://www.google.com/hostednews/sitemap_index.xml
 
+Cross-site scripting
+---------------------
 
+**Cross-site scripting (XSS)** is a type of computer insecurity vulnerability(漏洞) typically found in Web applications that enables attackers to inject client-side script into Web pages viewed by other users.
+
+By finding ways of injecting malicious scripts into web pages, an attacker can gain elevated access-privileges to sensitive page content, session cookies, and a variety of other information maintained by the browser on behalf of the user. Cross-site scripting attacks are therefore a special case of code injection.

@@ -1,6 +1,9 @@
 Web基础知识
 ============
 
+Hypertext Transfer Protocol
+----------------------------
+
 List of HTTP status codes
 ---------------------------
 
@@ -47,7 +50,7 @@ This class of status code indicates that further action needs to be taken by the
 
 **302 Found**
 
-**303 See Other (Since HTTP/1.1)**
+**303 See Other (Since HTTP/1.1)** : The response to the request can be found under another URI using a GET method. When received in response to a POST (or PUT/DELETE), it should be assumed that the server has received the data and the redirect should be issued with a separate GET message.
 
 **304 Not Modified**
 
@@ -121,4 +124,58 @@ Disadvantages
 It has been suggested with modern widespread high-bandwith connections, Keep-Alive might not be as useful as it once was. The webserver will keep a connection open for a certain number of seconds, which may hurt performance more than the total performance benefits.
 
 For services where single documents are regularly requested (for example image hosting websites), Keep-Alive can be massively detrimental(有害的) to performance dut to keeping unnecessary connections open for many seconds after the document was retrieved.
+
+Post/Redirect/Get
+-------------------
+
+**Post/Redirect/Get(PRG)** is a web development design pattern that prevents some duplicate form submissions, creating a more intuitive interface for user agents (users). **PRG** implements bookmarks and the refresh button in a predictable way that does not create duplicate form submissions.
+
+HTTP cookie
+-------------
+
+A cookie, also known as an HTTP cookie, web cookie, or browser cookie, is used for an origin website to send state information to a user's browser and for the browser to return the state information to the origin site. The state information can be used for authentication, identification of a user session, user's preferences, shopping cart contents, or anything else that can be accomplished through storing text data on the user's computer.
+
+Terminologies
+^^^^^^^^^^^^^^^
+
+**Session cookie** : A session cookie only lasts for the duration of users using the website. A web browser normally deletes session cookies when it quits. A session cookie is created when no expires directive is provided when the cookie is created.
+
+**Persistent cookie** : A persistent cookie will outlast user sessions. If a persistent cookie has its Max-Age to 1 year, then, within the year, the initial value set in that cookie would be sent back to the server every time the user visited the server. This could be used to record a vital piece of information such as how the user initially came to this website. For this reason persistent cookies are also called tracking cookies.
+
+**Secure cookie** : A secure cookie is only used when a browser is visiting a server via HTTPS, ensuring that the cookie is always encrypted when transmitting from client to server. This makes the cookie less likely to be exposed to cookie theft via eavesdropping.
+
+Uses
+^^^^^^
+
+**Session management**
+
+Cookies may be used to maintain data related to the user during navigation, possibly across multiple visits. Cookies were introduced to provide a way to implement a "shopping cart" (or "shopping basket"), a virtual device into which users can store items they want to purchase as they navigate throughout the site.
+
+Shopping basket applications today usually store the list of basket contents in a database on the server side, rather than storing basket items in the cookie itself. A web server typically sends a cookie containing a unique session identifier. The web browser will send back that session identifier with each subsequent request and shopping basket items are stored associated with a unique session identifier.
+
+Allowing users to log in to a website is a frequent use of cookies. Typically the web server will first send a cookie containing a unique session identifier. Users then submit their credentials and the web application authenticates the session and allows the user access to services.
+
+**Personalization**
+
+Cookies may be used to remember the information about the user who has visited a website in order to show relevant content in the future. For example a web server may send a cookie containing the username last used to log in to a website so that it may be filled for future visits.
+
+Many websites use cookies for personalization based on users' preference. Users select their preferences by entering them in a web form and submitting the form to the server. The server encodes the preferences in a cookie and sends the cookie back to the browser. This way, every time the user accesses a page, the server is also sent the cookie where the preferences are stored, and can personalize the page according to the user preferences.
+
+Implementation
+^^^^^^^^^^^^^^^^
+
+Cookies are arbitrary pieces of data chosen by the Web server and sent to the browser. The browser returns them unchanged to the server, introducing a state (memory of previous events) into otherwise stateless HTTP transactions. Without cookies, each retrieval of a Web page or component of a Web page is an isolated event, mostly unrelated to all other views of the pages of the same site. Other than being set by a web server, cookies can also be set by a script in a language such as JavaScript, if supported and enabled by the Web browser.
+
+.. image:: https://lh3.googleusercontent.com/-2l7PsE0aHOc/T4wpiRxNhSI/AAAAAAAABAw/RrT0lbF39_k/s700/HTTP_cookie_exchange.png
+
+**Cookie attributes**
+
+Besides the name–value pair, servers can also set these cookie attributes: a cookie domain, a path, expiration time or maximum age, Secure flag and HttpOnly flag. Browsers will not send cookie attributes back to the server. They will only send the cookie’s name-value pair. Cookie attributes are used by browsers to determine when to delete a cookie, block a cookie or whether to send a cookie (name-value pair) to the servers.
+
+Session
+---------
+
+在计算机专业术语中，Session是指一个终端用户与交互系统进行通信的时间间隔，通常指从注册进入系统到注销退出系统之间所经过的时间以及如果需要的话，可能还有一定的操作空间。
+
+具体到Web中的Session指的就是用户在浏览某个网站时，从进入网站到浏览器关闭所经过的这段时间，也就是用户浏览这个网站所花费的时间。
 

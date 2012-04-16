@@ -845,3 +845,158 @@ Ajax的核心是JavaScript的XMLHttpRequest对象，它是一种支持异步请�
 
 .. image:: https://lh3.googleusercontent.com/-RTTdo2_to48/T4uqUgeJLuI/AAAAAAAABAc/Q_8B4Gk2XP0/s800/ajax.gif
 
+**jQuery中的Ajax**
+
+jQuery对JavaScript中的Ajax进行封装。jQuery中的Ajax实现方法最大的一个优势就是消除了各个浏览器之间的差异，提高了程序的兼容性；其次简化了开发人员的操作，减少了程序代码量。
+
+jQuery对JavaScript中的Ajax进行了3层封装：第一层封装实现了$.ajax()方法；第二层封装实现了load方法，$.get()方法和$.post()方法；第三层封装实现了$.getScript()方法和$.getJSON()方法。
+
+*$.ajax()方法*
+
+$.ajax()方法是jQuery实现Ajax的最底层的方法。该方法只有一个object类型的参数，该参数属性都是以"键/值"对的形式设置的，用于设置Ajax请求的参数，如请求方式，请求URL，回调函数等。示例代码:
+::
+
+	$(document).ready(function(){
+		$("#Access").click(function(){
+			$.ajax({
+				type:'GET',
+				url:'http://www.baidu.com',
+				success:function(reqContent)
+				{
+					$("#browser").html(reqContent);
+					$("#content").text(reqContent);
+				}
+			});
+			$("#browser").html("<h1>正在打开百度搜索</h1>");
+		});
+	});
+
+*load()方法*
+
+load()方法是jQuery的Ajax中最简单也是最常用的方法，能远程载入HTML代码并直接插入DOM中，语法格式如下：
+::
+
+	load(url, [data], [callback]);
+
+该方法有3个参数，说明如下：
+
+- url: 请求的页面路径
+- data: 请求附加的参数，是"键/值"对的集合
+- callback: 请求完成时执行的回调函数，无论请求执行成功还是失败都将执行。
+
+*与其他Ajax方法不同，load()方法应用在被jQuery对象封装过的DOM容器对象上，而其他方法($.ajax(), $.get()等)是jQuery的全局方法，直接用jQuery变量操作这些方法。*
+
+*$.get()方法* ：使用GET方式来进行异步请求，语法格式如下：
+::
+	$.get(url, [data], [callback], [type]);
+
+该方法可以有4个参数，如下：
+
+- url : 异步请求的URL地址
+- data : 执行异步请求附加的参数列表。以"键/值"对集合的形式作为QueryString附加到请求的URL中。代码如下:
+::
+
+	$.get(
+		"http://localhost:2154/web/CommentList.aspx",
+		{
+			user : "oubama"
+		}
+	);
+
+等价于以下代码:
+::
+	
+	$.get("http://localhost:2154/web/CommentList.aspx?user=oubama");
+
+- callback : 回调函数，当响应成功时执行的函数。jQuery自动将请求结果和状态传递给该函数。该方法的语法格式如下:
+::
+
+	function(data, textStatus){
+		/*data: 请求结果，可以是html文本，xml文本，text文本，JSON文本等*/
+		/*textStatus: 响应状态，可能是success等*/
+	}
+
+- type : 设置返回内容的格式，可选值有xml, html, script, json, jsonp, text等，默认值是html。
+
+*$.post()方法*
+
+语法格式如下:
+::
+
+	$.post(url, [data], [callback], [type])
+
+可以看到，该方法的语法和$.get()方法一样，用法，参数列表及返回值都完全一致。但是，既然jQuery提供了这个方法，就说明它还是有存在的必要的。总体来说，它们有以下几点不同。
+
+- 在服务器端可能会为同一个URL的不同请求方式进行不同的操作(特别是在MVC模式下的应用程序中更为常见)，所以不同的请求方式可能会被服务器响应为不同的结果
+
+- $.get()方法是以GET方式提交的数据，所有的参数信息都将追加到URL后面。而Web请求一般对URL长度有一定的限制，所有$.get()方法传递的数据长度也有一定的上限，而$.post()方法是将参数作为消息的实体发送给服务器的，对数据无长度上的影响。
+
+- 由于浏览器的缓存功能会把所有请求的URL进行临时存储，所以以$.get()方法追加到URL中的数据也会被浏览器保存到磁盘上，这样如果参数是比较机密的数据，则可能会带来安全隐患，而作为数据内容的$.post()方法则不存在这个问题。
+
+*$.getJSON()方法*
+
+该方法通过GET方式请求载入JSON数据，语法格式如下:
+::
+
+	$.getJSON(url, [data], [callback])
+
+*JSON即JavaScript Object Natation，它是一种轻量级的数据交换格式，非常适合于服务器与JavaScript的交互。*
+
+*$.getScript()方法*
+
+在处理一些外部JavaScript文件较多的页面时，这些JavaScript文件在页面加载时全部加载会很大程序地影响载入速度，所以开发人员会将一些不常用的JavaScript文件在页面执行的时候动态加载。为解决这个问题，jQuery提供了一个$.getScript()方法来动态加载JavaScript文件。
+
+该方法使用GET方式载入一个JavaScript文件，并执行该文件的JavaScript代码。语法格式如下:
+::
+
+	$.getScript(url, [callback])
+
+- url : 待载入的JavaScript文件的URL
+- callback : 载入成功后执行的回调函数。
+
+例如，有个文件Test.js, 内容如下:
+::
+
+	function showMeg(){
+		alert("This is message");
+	}
+
+该文件需要在getScript.html页面运行的时候动态加载。
+
+getScript.html中有个命令按钮，代码如下:
+::
+
+	<input type="button" value="button" id="input" />
+
+接下来为其绑定动态加载事件，jQuery代码如下:
+::
+
+	$(document).ready(function(){
+		$("#input").click(function(){
+			$.getScript("Test.js", function(data){
+				showMsg();
+			});
+		});
+	});
+
+**序列化表单数据**
+
+用户与应用程序交互，通常需要用到表单，用于接收用户的输入。常规的表单提交机制会使整个浏览器刷新并重新加载响应。可使用Ajax方式异步地提交表单数据，然而在使用Ajax方式提交表单的时候，通常需要逐个获取表单元素的值，添加到参数列表中。在表单很复杂，项目很多的情况，$.post()方法的data参数也将会很复杂。jQuery为了解决这个问题，提供了 **序列化** 的方法简化对表单数据的收集和格式化。
+
+*serialize()方法*
+
+该方法将表单内容序列化成一个字符串，语法格式如下:
+::
+
+	$("form").serialize();
+
+该方法将指定表单的内容序列化成一个字符串形式的"键/值"对结构的参数集合，该字符串可以直接追加到异步请求的URL后面进行GET方式的提交，也可以作为Ajax方法的data参数进行提交。
+
+*serializeArray()方法*
+
+该方法可以将页面表单序列化成一个JSON结构的对象，该对象以"键/值"对集合的形式封装了表单里的所有元素值。语法格式如下:
+::
+
+	$("form").serializeArray();
+
+该方法返回的是一个JSON对象，而不是JSON字符串。

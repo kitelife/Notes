@@ -843,5 +843,5 @@ Ajax的核心是JavaScript的XMLHttpRequest对象，它是一种支持异步请�
 
 在非Ajax应用中，浏览器与服务器交互的方式是：浏览器发出请求，服务器对请求做出响应，浏览器收到响应请求，刷新页面内容。整个过程中，页面一片空白，用户只能等待整个过程完成。
 
-.. image:: https://lh5.googleusercontent.com/-R0Wzjsx943Y/T4uomXDQBDI/AAAAAAAABAI/xYt56AnDHoo/s475/ajax-fig1_small.png
+.. image:: https://lh3.googleusercontent.com/-RTTdo2_to48/T4uqUgeJLuI/AAAAAAAABAc/Q_8B4Gk2XP0/s800/ajax.gif
 

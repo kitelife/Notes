@@ -43,7 +43,8 @@ extern声明不是定义，也不分配存储空间。事实上，它只是说�
 如果声明有初始化式，那么它可被当作是定义，即使声明标记为extern: 
 
 ::
-	extern double pi = 3.1416;		// definition
+
+    extern double pi = 3.1416;		// definition
 
 只有当extern声明位于函数外部时，才可以含有初始化式。
 

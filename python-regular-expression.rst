@@ -37,10 +37,10 @@ Python自1.5版本起增加了re模块，提供Perl风格的正则表达式模�
 
     \d 匹配任何十进制数：相当于类[0-9]
     \D 匹配任何非数字字符：相当于类[^0-9]
-    \s 匹配任何空白字符：相当于类[\t\n\r\f\v]
-    \S 匹配任何非空白字符：相当于类[^\t\n\t\f\v]
-    \w 匹配任何字母数字字符：相当于类[a-zA-Z0-9]
-    \W 匹配任何非字母数字字符：相当于类[^a-zA-Z0-9]
+    \s 匹配任何空白字符：相当于类[ \t\n\r\f\v]
+    \S 匹配任何非空白字符：相当于类[^ \t\n\t\f\v]
+    \w 匹配任何字母数字字符：相当于类[a-zA-Z0-9_]
+    \W 匹配任何非字母数字字符：相当于类[^a-zA-Z0-9_]
 
 这样，特殊字符都可以包含在一个字符类中。如，[\\s,.]字符类将匹配任何空白字符或","或"."。
 
@@ -161,3 +161,60 @@ re模块也提供了顶级函数，如match()，search()，sub()等等。这些�
 - \\b : 单词边界。这是个零宽界定符。只用于匹配单词的词首和词尾。单词被定义为一个字母数字序列，因此词尾就是用空白符或非字母数字符来标示的。
 
 - \\B : 另一个零宽界定符，它正好和\b相反，只在当前位置不在单词边界时匹配。
+
+应用
+-----
+
+字符串替换
+^^^^^^^^^^^
+
+- 替换所有匹配的子串
+
+用newstring替换subject中所有与正则表达式regex匹配的子串:
+
+::
+
+    result, number = re.subn(regex, newstring, subject)
+
+- 替换所有匹配的子串(使用正则表达式对象)
+
+::
+
+    reobj = re.compile(regx)
+    result, number = reobj.subn(newstring, subject)
+
+字符串拆分
+^^^^^^^^^^^^
+
+- 字符串拆分
+
+::
+
+    result = re.spilt(regex, subject)
+
+- 字符串拆分(使用正则表达式对象)
+
+::
+
+    reobj = re.compile(regex)
+    result = reobj.split(subject)
+
+匹配
+^^^^^^
+
+- 将字符串中所有匹配的子串放入数组中
+
+::
+
+    result = re.findall(regex, subject)
+
+- 遍历所有匹配的子串
+
+::
+
+    for match in re.finditer(regex, subject):
+        # match start: match.start()
+        # match end(exclusive): match.end()
+        # matched text: match.group()
+
+

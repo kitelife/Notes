@@ -578,7 +578,7 @@ A simple example (this is not recommended as a real way of generating HTML!):
 	foo
 	</h1>
 
-contextlib.**nested**(mgr1[,mgr2[,...]])
+contextlib.**nested**(mgr1[,mgr2[,...]] )
 
 > Combine multiple context managers into a single nested context managers/
 

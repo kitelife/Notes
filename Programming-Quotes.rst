@@ -76,3 +76,35 @@ If you're willing to restrict the flexibility of your approach, you can almost a
 限制方法的灵活性几乎总会让你把事情做得更好。
 
 ------
+
+And folks, let's be honest. Sturgeon was an optimist. Way more than 90% of code is crap. --- viro [http://www.ussg.iu.edu/hypermail/linux/kernel/0310.0/0870.html]
+
+同志们啊，诚实一点。Sturgeon是个乐观主义者，其实远超过90%的代码都是垃圾。
+
+------
+
+A data structure is just a stupid programming language. --- R. Wm. Gosper
+
+数据结构就是笨拙的编程语言。(译注：好吧，我承认，其实我并不懂这话的意思)
+
+------
+
+The essence of `XML <http://harmful.cat-v.org/software/xml/>` is this: the problem it solves is not hard, and it does not solve the problem well. --- Phil Wadler, POPL 2003
+
+XML的实质就是：问题并不难，它也没有解决好。
+
+------
+
+A program that produces incorrect result twice as fast is infinitely slower. --- John Osterhout
+
+结果不对，程序再快都顶个屁用。
+
+------
+
+Life is too short to run proprietary software. --- Bdale Garbee
+
+专有软件，让生命更加短暂。
+
+------
+
+

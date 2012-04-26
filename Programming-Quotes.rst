@@ -89,7 +89,7 @@ A data structure is just a stupid programming language. --- R. Wm. Gosper
 
 ------
 
-The essence of `XML <http://harmful.cat-v.org/software/xml/>` is this: the problem it solves is not hard, and it does not solve the problem well. --- Phil Wadler, POPL 2003
+The essence of `XML <http://harmful.cat-v.org/software/xml/>`_ is this: the problem it solves is not hard, and it does not solve the problem well. --- Phil Wadler, POPL 2003
 
 XML的实质就是：问题并不难，它也没有解决好。
 

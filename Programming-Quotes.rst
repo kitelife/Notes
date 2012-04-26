@@ -13,7 +13,28 @@ There are two ways of constructing a software design: One way is to make it so s
 
 The computing scientist's main challenge is not to get confused by the complexities of his own making.  ---E.W.Dijkstra
 
-计算科学家的主要挑战就是不要被他自己造成的复杂性搞糊涂了。
+计算科学家的主要挑战是不要被他自己造成的复杂性搞糊涂了。
 
 ------
+
+The cheapest, fastest, and most reliable components are those that aren't there. ---Gordon Bell
+
+最廉价，最快速，并且最可靠的部件是那些还没被使用的
+
+------
+
+One of my most productive days was throwing away 1000 lines of code. --- `Ken Thompson <http://genius.cat-v.org/ken-thompson/>`_
+
+我最多产的一天抛弃了1000行代码。
+
+------
+
+When in doubt, use brute force. --- `Ken Thompson <http://genius.cat-v.org/ken-thompson/>`_
+
+若有把握，暴力破解。
+
+------
+
+Deleted code is debugged code. --- Jeff Sickel
+
 

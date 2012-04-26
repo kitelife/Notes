@@ -31,10 +31,48 @@ One of my most productive days was throwing away 1000 lines of code. --- `Ken Th
 
 When in doubt, use brute force. --- `Ken Thompson <http://genius.cat-v.org/ken-thompson/>`_
 
-若有把握，暴力破解。
+若无把握，暴力破解。
 
 ------
 
 Deleted code is debugged code. --- Jeff Sickel
 
+需要调试的代码都应该删除。
 
+------
+
+Debugging is twice as hard as writing the code in the first place. Therefore, if you write the code as cleverly as possible, you are, by definition, not smart enough to debug it.  --- `Brian W. Kernighan <http://genius.cat-v.org/brian-kernighan/>`_ and P. J. Plauger in `The Elements of Programming Style <http://www.amazon.com/gp/product/0070342075?ie=UTF8&tag=catv-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0070342075>`_
+
+调试的难度两倍于一开始的写代码。因此，如果你尽可能巧妙地编写代码，根据定义，说明你还不具备足够的智商来调试它。
+
+------
+
+The most effective debugging tool is still careful thought, coupled with judiciously placed print statements. --- `Brian W. Kernighan <http://genius.cat-v.org/brian-kernighan/>`_ , in the paper Unix for Beginners(1979)
+
+最有效的调试工具是静下心来仔细思考，辅之审慎地放置打印语句。
+
+------
+
+Controlling complexity is the essence of computer programming. --- `Brian Kernighan <http://genius.cat-v.org/brian-kernighan/>`_
+
+计算机编程的本质是控制复杂度。
+
+------
+
+Beauty is more important in computing than anywhere else in technology because software is so complicated. Beauty is the ultimate defence against complexity. --- David Gelernter
+
+相比其他技术领域，美对于计算来说更为重要，因为软件超乎寻常的复杂，而美是对复杂性的一种终极防御。
+
+------
+
+UNIX was not designed to stop its users from doing stupid things, as that would also stop them from doing clever things. --- Doug Gwyn
+
+UNIX并不会阻止用户干蠢事，因为那样也会阻碍用户做些聪明的事情。
+
+------
+
+If you're willing to restrict the flexibility of your approach, you can almost always do something better. --- John Carmack
+
+限制方法的灵活性几乎总会让你把事情做得更好。
+
+------

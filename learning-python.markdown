@@ -615,4 +615,40 @@ without needing to explicitly close *page*. Even if an error occurs, *page.close
 > 2. For translation lookup in il8n (imported from the corresponding C convertions, I believe)
 > 3. As a general purpose "throwaway" variable name to indicate that part of a function result is being deliberately ignored
 >
-> The latter two purposes can conflict, so it is necessary to avoid using *_* as a throwaways variable in any code block that also uses it for il8n translation. 
+> The latter two purposes can conflict, so it is necessary to avoid using *_* as a throwaways variable in any code block that also uses it for il8n translation.
+
+**What is the difference between list and []?**
+
+They are both ways of constructing a list. list() takes a single argument (any iterable) and returns a copy of the list that results from iterating that iterable. [] takes any number of items but does not make copies or try to iterate.
+
+	>>> orig = [1, 2, 3]
+	>>> new = [orig]
+	>>> new
+	[[1, 2, 3]]
+	>>> orig[0] = 42
+	>>> new
+	[[42, 2, 3]]
+
+Writing [orig] means a list containing one value, which itself is a list of three values (notice the double [[ and ]]). No copy was made, which means that when orig was modified, new reflected the change. But using list() here makes a copy rather than embedding the list in another list:
+
+	>>> orig = [1, 2, 3]
+	>>> new = list(orig)
+	>>> new
+	[1, 2, 3]
+	>>> orig[0] = 42
+	>>> new
+	[1, 2, 3]
+
+In this case list(orig) made a copy of the list instead of making a new list with one value, and since it was a copy, it was not affected when the original was modified.
+
+list() is usefull when you have some kind of lazy iterator (such a generator) that only produces its item as needed, and you want to "collapse" that into a list. For example:
+
+	>>> suits = (s for s in ('hearts', 'clubs', 'spades', 'diamonds'))
+	>>> [suits]
+	[<generator object <genexpr> at 0x02DC95D0>]
+	>>> list(suits)
+	['hearts', 'clubs', 'spades', 'diamonds']
+
+Writing [suits] did not touch the iterator, it just placed it in a one-item list. list(suits) evaluated it until it ended, and constructed and returned a list of the result.
+
+ 

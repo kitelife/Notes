@@ -86,3 +86,13 @@ Calling a command generally means the invocation of a newly created process on t
 
 The overhead involved in interpretation may be reduced by using compiled CGI programs, such as those in C/C++, rather than using Perl or other scripting languages. The overhead involved in process creation can be reduced by solutions such as FastCGI, or by running the application code entirely within the web server using extension modules such as mod_php.
 
+PHP-FPM
+^^^^^^^^^^^
+
+PHP-FPM (FastCGI Process Manager) is an alternative PHP FastCGI implementation with some additional features useful for sites of any size, especially busier sites.
+
+php5-fpm: This package provides the Fast Process Manager interpreter that runs as a daemon and receives Fast/CGI requests. 
+
+PHP-FPM vs. spawn-fastcgi : spawn-fastcgi本质上是管理php5-cgi进程，而PHP-FPM本身就是一种fastcgi的实现，并且提供对进程的管理。
+
+

@@ -69,6 +69,24 @@ Each individual FastCGI process can handle many requests over its lifetime, ther
 
 Web site administrators and programmers can find that the separation of web applications from the web server in FastCGI has many advantages over embedded interpreters (mod_perl, mod_php, etc.). This separation allows server and application processes to be restarted independently – an important consideration for busy web sites. It also enables the implementation of per-application / hosting service security policies, which is an important requirement for ISPs and web hosting companies. Different types of incoming requests can be distributed to specific FastCGI servers which have been equipped to handle those particular types of requests efficiently.
 
+------
+
+**About FastCGI**
+
+FastCGI is simple because it is actually CGI with only a few extensions.
+* Like CGI, FastCGI is also language-independent. For instance, FastCGI provides a way improve the performance of the thousands of Perl applications that have been written for the Web.
+* Like CGI, FastCGI runs applications in processes isolated from the core Web server, which provides greater security than APIs. (APIs link application code into the core Web server, which means that a bug in one API-based application can corrupt another application or the core server; a malicious API-based application can, for example, steal key security secrets from another application or the core server.)
+
+* Like CGI, FastCGI is not tied to the internal architecture of any Web server and is therefore stable even when server technology changes. An API reflects the internal architecture of a Web server, so when that architecture changes, so does the API.
+
+Not only does FastCGI restore the strengths of CGI, it also adds two new benefits:
+
+* Distributed computing: Companies can run their FastCGI application on a different machine from the one on which they run their Web server. Distributed computing is a proven technique for scaling, linking to existing corporate systems, improving system availability, and improving security via compartmentalization, such as firewalls.
+
+* Multiple and extensible roles: CGI applications compute the response to an HTTP request. FastCGI applications can do that and more, such as perform modular authentication and authorization checks and translate data from one type to another. FastCGI is designed so that more roles can be introduced in the future.
+
+------
+
 Common Gateway Interface(CGI)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 

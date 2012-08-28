@@ -53,3 +53,36 @@ Client use client side libraries to contact the servers which, by default, expos
 The servers keep the values in RAM; if a server runs out of RAM, it discards the oldest values. Therefore, clients must treat Memcached as a transitory (暂时的) cache; they cannot assume that data stored in Memcached is still there when they need it. A Memcached-protocol compatible product known as MemcacheDB provides persistent storage.
 
 If all client libraries use the same hasing algorithm to determine servers, then clients can read each other's cached data, this is obviously desirable.
+
+FastCGI
+^^^^^^^^^^^^^
+
+FastCGI is a protocol for interfacing interactive programs with a web server. FastCGI is a variation on the earlier Common Gateway Interface(CGI); FastCGI's main aim is to reduce the overhead associated with interfacing the web server and CGI programs, allowing a server to handle more web page requests at once.
+
+CGI is a protocol for interfacing external applications to web servers. CGI applications run in separate processes, which are created at the start of each request and torn down at the end. This "one new process per request" model makes CGI programs very simple to implement, but limits efficiency and scalability. At the high loads, the operating system process creation and destruction overhead becomes significant. In addition, the CGI process model limits resource reuse techniques (such as reusing database connection, in-memory caching, etc.).
+
+Instead of creating a new process for each request, FastCGI uses persistent process to handle a series of requests. This processes are owned by the FastCGI server, not the web server.
+
+To service an incoming request, the web server sends environment information and the page request itself to a FastCGI process over a socket(in the case of local FastCGI processes on the web server) or TCP connection (for remote FastCGI processes in a server farm). Responses are returned from the process to the web server over the same connection, and the web server subsequently delivers that response to the end-user. The connection may be closed at the end of a response, but both the web server and the FastCGI service processes persist.
+
+Each individual FastCGI process can handle many requests over its lifetime, thereby avoiding the overhead of per-request process creation and termination. Processing of multiple requests simultaneously can be achieved in several ways: by using a single connection with internal multiplexing (i.e. multiple requests over a single connection); by using multiple connections; or by combination of these techniques. Multiple FastCGI servers can be configured, increasing stability and scalability.
+
+Web site administrators and programmers can find that the separation of web applications from the web server in FastCGI has many advantages over embedded interpreters (mod_perl, mod_php, etc.). This separation allows server and application processes to be restarted independently – an important consideration for busy web sites. It also enables the implementation of per-application / hosting service security policies, which is an important requirement for ISPs and web hosting companies. Different types of incoming requests can be distributed to specific FastCGI servers which have been equipped to handle those particular types of requests efficiently.
+
+Common Gateway Interface(CGI)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The Common Gateway Interface (CGI) is a standard method for web server software to delegate the generation of web content to executable files. Such files are known as CGI scripts; they are programs, often stand-alone applications, usually written in a scripting language.
+
+A web server that supports CGI can be configured to interpret a URL that it serves as a reference to a CGI script. A common convention is to have a cgi-bin/ directory at the base of the directory tree and treat all executable files within it as CGI scripts.
+
+In the case of HTTP PUT OR POSTS, the user-submitted data is provided to the program via the standard input. The web server creates a small and efficient subset of the environment variables passed to it and adds details pertinent to the execution of the program.
+
+The program returns the result to the web server in the form of standard output, beginning with a header and a blank line. The header is encoded in the same way as an HTTP header and must include the MIME type of the document returned. The headers, supplemented by the web server, are generally forwarded with the response back to the user.
+
+**Drawbacks**
+
+Calling a command generally means the invocation of a newly created process on the server. Starting the process can consume much more time and memory than the actual work of generating the output, especially when the program still needs to be interpreted or compiled. If the command is called often, the resulting workload can quickly overwhelm the web server.
+
+The overhead involved in interpretation may be reduced by using compiled CGI programs, such as those in C/C++, rather than using Perl or other scripting languages. The overhead involved in process creation can be reduced by solutions such as FastCGI, or by running the application code entirely within the web server using extension modules such as mod_php.
+

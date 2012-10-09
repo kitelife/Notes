@@ -260,3 +260,23 @@ TCP用三路握手(three-way handshake)过程建立一个连接。在连接建�
 
 连接终止使用了四路握手过程(four-way handshake)，在这个过程中每个终端的连接都能独立地被终止。因此，一个典型的拆接过程需要每个终端都提供一堆FIN和ACK。
 
+用户数据报协议(User Datagram Protocol, UDP)
+------------------------------------------------
+
+UDP uses a simple transmission model with a minimum of protocol mechanism. It has no handshaking dialogues, and thus exposes any unreliability of the underlying network protocol to the user's program. As this is normally IP over unreliable media, there is no guarantee of delivery, ordering or duplicate protection. UDP provides checksums for data integrity, and port numbers for addressing different functions at the source and destination of the datagram.
+
+UDP is suitable for purposes where error checking and correction is either not necessary or performed in the application, avoiding the overhead of such processing at the network interface level. Time-sensitive applications often use UDP because dropping packets is preferable to waiting for delayed packets, which may not be an option in a real-time system. If error correction facilities are needed at the network interface level, an application may use the Transmission Control Protocol(TCP) or Stream Control Transmission Protocol(SCTP) which are designed for this purpose.
+
+A number of UDP's attributes make it especially suited for certain applications.
+
+- It is transaction-oriented, suitable for simple query-response protocols such as the Domain Name System or the Network Time Protocol.
+
+- It provides datagrams, suitable for modeling other protocols such as in IP tunneling or Remote Procedure Call and the Network File System.
+
+- It is simple, suitable for bootstrapping or other purposes without a full protocol stack, such as the DHCP and Trivial File Transfer Protocol.
+
+- It is stateless, suitable for very large numbers of clients, such as in streaming media applications for example IPTV
+
+- The lack of retransmission delays makes it suitable for real-time applications such as Voice over IP, online games, and many protocols built on top of the Real Time Streaming Protocol.
+
+- Works well in unidirectional communication, suitable for broadcast information such as in many kinds of service discovery and shared information such as broadcast time or Routing Information Protocol

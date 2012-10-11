@@ -182,6 +182,31 @@ F(n)的值是多少？
 CAS(Compare And Swap)
 -------------------------
 
+	bool compare_and_swap(int *accum, int *dest, int newval)
+	{
+		if(*accum == *dest)
+		{
+			*dest = newval;
+			return true;
+		}
+		return false;
+	}
+
+CAS方式实现的进队列操作：
+
+	EnQueue(x)	//进队列
+	{
+		q = new record();
+		q->value = x;
+		q->next = NULL;
+
+		do {
+			p = tail;	//取链表尾指针的快照
+		}while(CAS(p->next, NULL, q) != TRUE)	//如果没有把结点链上，再试
+
+		CAS(tail, p, q);	//置尾结点
+	}
+
 1. [无锁的数据结构（Lock-Free）及CAS（Compare-and-Swap）机制](http://blog.csdn.net/lifesider/article/details/6582338)
 
 2. [Wikipedia---Compare-and-swap](http://en.wikipedia.org/wiki/Compare-and-swap)

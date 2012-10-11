@@ -172,3 +172,19 @@ F(n)的值是多少？
 		}
 		return 0;
 	}
+
+
+大文件处理
+------------
+
+设计算法从文件中随机取K行(内存够存储K行)，每行被取的概率相等，算法复杂度要低。(具体的记不太清楚了)
+
+CAS(Compare And Swap)
+-------------------------
+
+1. [无锁的数据结构（Lock-Free）及CAS（Compare-and-Swap）机制](http://blog.csdn.net/lifesider/article/details/6582338)
+
+2. [Wikipedia---Compare-and-swap](http://en.wikipedia.org/wiki/Compare-and-swap)
+
+3. [无锁队列的实现](http://coolshell.cn/articles/8239.html)
+

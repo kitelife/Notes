@@ -223,11 +223,57 @@ CAS方式实现的进队列操作：
 
 - 冒泡排序(Bubble sort) --- O(n^2)
 
+
+	def bubbleSort(L):
+		print 'start bubble sort:'
+		print L
+		count = 0
+		while True:
+			step = 0
+			for i in range(len(L)-1):
+				if L[i] > L[i+1]:
+					L[i], L[i+1] = L[i+1], L[i]
+					print L
+					step += 1
+					count += 1
+			if step == 0:
+				return L, 'totalstep:', count
+
 - 插入排序(Insertion sort) --- O(n^2)
 
 - 桶排序(Bucket sort) --- O(n)，需要O(k)额外空间
 
 - 计数排序(Counting sort) --- O(n+k)，需要O(n+k)额外空间
+
+
+	#include <stdlib.h>
+	
+	void counting_sort(int *array, int size)
+	{
+		int i, min, max;
+		min = max = array[0];
+		for(i=1; i<size; i++)
+		{
+			if(array[i] < min)
+				min = array[i];
+			else if(array[i] > max)
+				max = array[i];
+		}
+
+		int range = max-min+1;
+		int *count = (int *)malloc(range * sizeof(int));
+
+		for(i = 0; i < range; i++)
+			count[i] = 0;
+		for(i = 0; i < size; i++)
+			count[array[i]-min]++;
+
+		int j, z = 0;
+		for(i=min; i<=max; i++)
+			for(j=0; j<count[i-min]; j++)
+				array[z++] = i;
+		free(count);
+	}
 
 - 归并排序(Merge sort) --- O(nlogn)，需要O(n)额外空间
 
@@ -242,7 +288,8 @@ CAS方式实现的进队列操作：
 - 堆排序(Heap sort) --- O(nlogn)
 
 - 快速排序(Quick sort) --- O(nlogn)
-	
+
+
 	def qsort(L):
 		if not L: return []
 		return qsort([x for x in L[1:] if x<L[0]]) + L[0:1] + \

@@ -213,3 +213,32 @@ CAS方式实现的进队列操作：
 
 3. [无锁队列的实现](http://coolshell.cn/articles/8239.html)
 
+
+排序算法
+----------
+
+不稳定排序算法可能会在相等的键值中改变记录的相对次序，但是稳定排序算法从来不会如此。
+
+**稳定的**
+
+- 冒泡排序(Bubble sort) --- O(n^2)
+
+- 插入排序(Insertion sort) --- O(n^2)
+
+- 桶排序(Bucket sort) --- O(n)，需要O(k)额外空间
+
+- 计数排序(Counting sort) --- O(n+k)，需要O(n+k)额外空间
+
+- 归并排序(Merge sort) --- O(nlogn)，需要O(n)额外空间
+
+- 基数排序(Radix sort) --- O(n * k)，需要O(n)额外空间
+
+**不稳定的**
+
+- 选择排序(Selection sort) --- O(n^2)
+
+- 希尔排序(Shell sort) --- O(nlogn)
+
+- 堆排序(Heap sort) --- O(nlogn)
+
+- 快速排序(Quick sort) --- O(nlogn)

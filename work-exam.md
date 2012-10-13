@@ -55,7 +55,8 @@ F(n)的值是多少？
 ----------
 
 ![graph](https://lh3.googleusercontent.com/-WAC-FEacK3A/UHZ1eVyHU-I/AAAAAAAABHk/pHRhHRwszLQ/s347/graph-sample.jpg)
-![源代码](https://github.com/youngsterxyf/Data-Structures-and-Algorithms/blob/master/graph.cpp)
+
+[源代码](https://github.com/youngsterxyf/Data-Structures-and-Algorithms/blob/master/graph.cpp)
 
 大文件处理
 ------------

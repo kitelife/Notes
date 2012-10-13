@@ -198,15 +198,66 @@ CAS方式实现的进队列操作：
 
 ### 指针的基本理解 ###
 
+已知int* p = &n，请问*p是什么？
+
+**p是n的地址*
+
 ### 93&-8等于多少 ###
+
+11011101 & 11111000 = 11011000 = 88
 
 ### 已知(he)^2 = she，请求出s, h, e各自的值为多少？ ###
 
+s = 6; h = 2; e = 5;
+
 ### 给定二维数组a[1...100][1...65]，以行序进行存储，假设数组的基地址为10000，每个元素需要2个存储单元，请求出元素a[56][21]的存储地址。 ###
+
+(55 * 65 + 22) * 2 + 10000 = 17194
 
 ### 给定一个数组a，求数组result，其中result[i]的值为除a[i]之外的其他a的元素值的乘积(假设不会溢出)。算法的时间，空间复杂度要尽可能低。 ###
 
+	int* getProduct(int* a, int n)
+	{ 
+		int allproduct = 1;
+		int index;
+		for(index=0; index<n; index++)
+			allproduct *= a[index];
+		int* productResult = new int[n];
+		for(index=0; index<n; index++)
+			productResult[index] = allproduct / a[index];
+		return productResult;
+	}
+
+时间复杂度为O(n)
+
+
+	int* getProduct(int* a, int n)
+	{
+		int* productResult = new int[n];
+		int i, j, temp;
+		for(i=0; i<n; i++)
+		{
+			
+			temp = 1;
+			for(j=0; j<n; j++)
+			{
+				if(j != i)
+					temp *= a[j];
+			}
+			productResult[i] = temp;
+		}
+		return productResult;
+	}
+	
+时间复杂度为O(n^2)
+
 ### 给定一个数组a，其中有3个元素出现了两次，其余元素仅出现一次。请找出其中仅出现一次的任意一个元素。算法的时间，空间复杂度要低 ###
+
+方法一：先排序，然后对元素依次两两比较遍历一遍排好序的数组，如果两个元素不同，则输出第一个元素，并退出循环。如果相同，则跳过下一个元素，再次开始两两比较。
+
+方法二：先找出数组a中的最大元素x，创建一个大小为x的数组temp，并所有元素初始化为-1。遍历数组a，temp[a[i]]++。再遍历temp，如果temp[i]==0，则返回i，并退出循环。
+
 
 ### 给定n个人，以及m对人之间的关联(以二维数组的方式存储)，人与人之间直接关联或间接关联形成一个朋友圈。请找出给定信息的朋友圈的个数。算法时间空间复杂度要低。并分析其时间空间复杂度。 ###
 
+使用 **合并-查找算法**

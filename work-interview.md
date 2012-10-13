@@ -10,12 +10,10 @@
 - **程序设计题：有一文件，里面有各种单词，请统计每个单词的数量，并按数量从大到小排序。**
 
 
-	#本程序假设一行一个单词
-	
 	def sortFile(filename):
 		contentList = list()
 		with open(filename) as fh:
-			for line in fh:
+			for line in fh:			#本程序假设一行一个单词
 				line = line.strip('\n')
 				contentList.append(line)
 		countingDict = dict()

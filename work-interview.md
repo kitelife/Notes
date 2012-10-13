@@ -10,6 +10,7 @@
 - **程序设计题：有一文件，里面有各种单词，请统计每个单词的数量，并按数量从大到小排序。**
 
 
+
 	def sortFile(filename):
 		contentList = list()
 		with open(filename) as fh:
@@ -31,6 +32,7 @@
 
 
 假设现在有多个文件，总大小为100GB，有什么方法可以在一个小时内完成对这些文件内容的排序。(mapreduce)
+
 
 - **电梯算法**
 

@@ -11,6 +11,7 @@
 
 
 	#本程序假设一行一个单词
+	
 	def sortFile(filename):
 		contentList = list()
 		with open(filename) as fh:

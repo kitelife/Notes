@@ -330,21 +330,47 @@ s = 6; h = 2; e = 5;
 
 ### BITMAP的简单实现：使用char类型数组 ###
 
-
+	char* a;
+	...
+	void set(int n)	//设置第n位为1
+	{
+		int index = (n-1)/8;
+		a[index] |= 1<<(n-1-(n-1)%8)
+	}
 
 ### 矩阵向右旋转90度的实现 ###
+
+	int maxtrix[M][N];
+	...
+	int reverseMatrix[N][M];
+	int i, j;
+	for(i=0; i<M; i++)
+	{
+		for(j=0; j<N; j++)
+		{
+			reverseMatrix[j][M-1-i] = matrix[i][j];
+		}
+	}
 
 ### 数据结构：线性结构与非线性结构 ###
 
 ### 综合考虑等待时间和执行时间的进程调度算法？ ###
 
+*高响应比优先调度算法*
+
 ### 无法提高可靠性的RAID是？ ###
+
+*RAID0*
+
+[wikipedia-RAID](http://zh.wikipedia.org/zh/RAID)
 
 ### 类型的空间占用 ###
 
 下列哪个占用的空间最大？
 
 A.1   B.'1'   C."1"   D.1.0
+
+答：D
 
 ### union和struct结构的存储与空间占用问题(对齐) ###
 

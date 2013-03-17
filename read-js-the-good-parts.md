@@ -1,8 +1,4 @@
----
-layout: post
-title: 读书笔记：JavaScript语言精粹
-tags: [笔记, JavaScript]
----
+见[读书笔记：JavaScript语言精粹](http://youngsterxyf.github.com/2013/03/14/read-js-thegoodparts/)
 
 ##第2章：语法
 
